@@ -48,17 +48,17 @@ namespace GammaLibrary
         [MethodImpl(MethodImplOptions.Synchronized)]
         public static void Save() => Instance.ToJsonString().SaveToFile(SavePath);
 
-        public static string SavePath => typeof(T).GetCustomAttribute<ConfigurationAttribute>().SavePath;
+        public static string SavePath => typeof(T).GetCustomAttribute<ConfigurationAttribute>().SaveName + ".json";
     }
 
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     public sealed class ConfigurationAttribute : Attribute
     {
-        public string SavePath { get; }
+        public string SaveName { get; }
 
-        public ConfigurationAttribute(string savePath)
+        public ConfigurationAttribute(string saveName)
         {
-            SavePath = savePath;
+            SaveName = saveName;
         }
     }
 }
