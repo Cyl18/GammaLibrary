@@ -15,5 +15,15 @@ namespace GammaLibrary.Extensions
         {
             return Convert.ToBase64String(bytes);
         }
+
+        public static string ToUTF8String(this byte[] bytes)
+        {
+            return Encoding.UTF8.GetString(bytes);
+        }
+
+        public static byte[] FromBase64String(this string str)
+        {
+            return Convert.FromBase64String(str);
+        }
     }
 }
