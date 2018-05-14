@@ -21,9 +21,11 @@ namespace GammaLibrary.Extensions
             return Encoding.UTF8.GetString(bytes);
         }
 
-        public static byte[] FromBase64String(this string str)
+        public static byte[] ToBase64SourceBytes(this string str)
         {
             return Convert.FromBase64String(str);
         }
+
+        public static string ToHexString(this byte[] bytes) => BitConverter.ToString(bytes).Replace("-", "");
     }
 }
