@@ -12,7 +12,7 @@ namespace GammaLibrary
         /// <summary>
         /// 从指定程序集中读取资源.
         /// </summary>
-        /// <param name="assembly">指定的汇编</param>
+        /// <param name="assembly">指定的程序集</param>
         /// <param name="name">资源名称</param>
         /// <returns>资源的字符串</returns>
         public static string Read(Assembly assembly, string name)
