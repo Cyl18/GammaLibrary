@@ -23,13 +23,13 @@ namespace GammaLibrary
 
         public static string Read(string name) => Read(Assembly.GetCallingAssembly(), name);
 
-        public static Task<string> ReadAsync(Assembly assembly, string name)
+        public static async ValueTask<string> ReadAsync(Assembly assembly, string name)
         {
             var stream = GetStream(assembly, name);
-            return stream == null ? Task.FromResult<string>(null) : new StreamReader(stream).ReadToEndAsync();
+            return stream == null ? null : await new StreamReader(stream).ReadToEndAsync();
         }
 
-        public static Task<string> ReadAsync(string name) => ReadAsync(Assembly.GetCallingAssembly(), name);
+        public static ValueTask<string> ReadAsync(string name) => ReadAsync(Assembly.GetCallingAssembly(), name);
 
         public static Stream GetStream(Assembly assembly, string name) => assembly.GetManifestResourceStream(name);
 
