@@ -63,5 +63,15 @@ namespace GammaLibrary.Extensions
         {
             return $"{prefix}{string.Join(separator, enumerable)}{postfix}";
         }
+
+        public static T[] AsArray<T>(T obj)
+        {
+            return new[] { obj };
+        }
+
+        public static List<T> AsList<T>(T obj)
+        {
+            return new List<T> { obj };
+        }
     }
 }
