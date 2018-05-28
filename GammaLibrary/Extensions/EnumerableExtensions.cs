@@ -64,12 +64,12 @@ namespace GammaLibrary.Extensions
             return $"{prefix}{string.Join(separator, enumerable)}{postfix}";
         }
 
-        public static T[] AsArray<T>(T obj)
+        public static T[] AsArray<T>(this T obj)
         {
             return new[] { obj };
         }
 
-        public static List<T> AsList<T>(T obj)
+        public static List<T> AsList<T>(this T obj)
         {
             return new List<T> { obj };
         }
