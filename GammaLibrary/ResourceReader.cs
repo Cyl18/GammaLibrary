@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace GammaLibrary
 {
+    //[Obsolete("Use resource class instead.")]
     public static class ResourceReader
     {
         /// <summary>

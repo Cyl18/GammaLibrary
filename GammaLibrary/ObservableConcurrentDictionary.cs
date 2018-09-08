@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Diagnostics;
 
+// ReSharper disable once CheckNamespace
 namespace System.Collections.Concurrent
 {
     /// <summary>
@@ -53,16 +54,10 @@ namespace System.Collections.Concurrent
             {
                 _context.Post(s =>
                 {
-                    if (collectionHandler != null)
-                    {
-                        collectionHandler(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
-                    }
-                    if (propertyHandler != null)
-                    {
-                        propertyHandler(this, new PropertyChangedEventArgs("Count"));
-                        propertyHandler(this, new PropertyChangedEventArgs("Keys"));
-                        propertyHandler(this, new PropertyChangedEventArgs("Values"));
-                    }
+                    collectionHandler?.Invoke(this, new NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Reset));
+                    propertyHandler?.Invoke(this, new PropertyChangedEventArgs("Count"));
+                    propertyHandler?.Invoke(this, new PropertyChangedEventArgs("Keys"));
+                    propertyHandler?.Invoke(this, new PropertyChangedEventArgs("Values"));
                 }, null);
             }
         }
@@ -130,20 +125,13 @@ namespace System.Collections.Concurrent
             ((ICollection<KeyValuePair<TKey, TValue>>)_dictionary).CopyTo(array, arrayIndex);
         }
 
-        int ICollection<KeyValuePair<TKey, TValue>>.Count
-        {
-            get { return ((ICollection<KeyValuePair<TKey, TValue>>)_dictionary).Count; }
-        }
+        int ICollection<KeyValuePair<TKey, TValue>>.Count => ((ICollection<KeyValuePair<TKey, TValue>>)_dictionary).Count;
 
-        bool ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly
-        {
-            get { return ((ICollection<KeyValuePair<TKey, TValue>>)_dictionary).IsReadOnly; }
-        }
+        bool ICollection<KeyValuePair<TKey, TValue>>.IsReadOnly => ((ICollection<KeyValuePair<TKey, TValue>>)_dictionary).IsReadOnly;
 
         bool ICollection<KeyValuePair<TKey, TValue>>.Remove(KeyValuePair<TKey, TValue> item)
         {
-            TValue temp;
-            return TryRemoveWithNotification(item.Key, out temp);
+            return TryRemoveWithNotification(item.Key, out _);
         }
 
         #endregion ICollection<KeyValuePair<TKey,TValue>> Members
@@ -181,8 +169,7 @@ namespace System.Collections.Concurrent
 
         public bool Remove(TKey key)
         {
-            TValue temp;
-            return TryRemoveWithNotification(key, out temp);
+            return TryRemoveWithNotification(key, out _);
         }
 
         public bool TryGetValue(TKey key, out TValue value)
