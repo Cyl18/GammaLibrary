@@ -45,5 +45,8 @@ namespace GammaLibrary.Extensions
         public static string RemoveLastChar(this string str) => str.Substring(0, str.Length - 1);
 
         public static string RemoveLastChars(this string str, int count) => str.Substring(0, str.Length - count);
+
+        public static bool IsNullOrEmpty(this string str) => string.IsNullOrEmpty(str);
+        public static bool IsNullOrWhiteSpace(this string str) => string.IsNullOrWhiteSpace(str);
     }
 }
