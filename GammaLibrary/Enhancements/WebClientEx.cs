@@ -12,7 +12,7 @@ namespace GammaLibrary.Enhancements
         private IProgress<(long bytesReceived, int percentage, long bytesToReceive)> progressHandler;
         public CookieContainer CookieContainer { get; set; } = new CookieContainer();
         public bool AutoRetry { get; set; } = true;
-        public int MaxRetries { get; set; } = 3;
+        public int MaxRetries { get; set; } = 2;
 
         public WebClientEx()
         {

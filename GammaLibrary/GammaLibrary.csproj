@@ -1,14 +1,21 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Authors>Cyl18</Authors>
+    <Company>Cyl18</Company>
+    <Description>Just my coding library.</Description>
+    <Copyright>Cyl18</Copyright>
+    <PackageLicenseUrl>https://github.com/Cyl18/GammaLibrary/blob/master/LICENSE</PackageLicenseUrl>
+    <PackageProjectUrl>https://github.com/Cyl18/GammaLibrary</PackageProjectUrl>
+    <PackageIconUrl>https://avatars3.githubusercontent.com/u/14993992</PackageIconUrl>
+    <RepositoryUrl>https://github.com/Cyl18/GammaLibrary</RepositoryUrl>
+    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Fody" Version="3.0.3" />
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
-    <PackageReference Include="PropertyChanged.Fody" Version="2.5.6" />
-    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.0-rc1" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.1" />
+    <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.2" />
   </ItemGroup>
 
 </Project>
