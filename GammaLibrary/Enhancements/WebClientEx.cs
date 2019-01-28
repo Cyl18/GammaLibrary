@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Net;
 using System.Text;
+using System.Threading.Tasks;
 using GammaLibrary.Extensions;
+// ReSharper disable AssignNullToNotNullAttribute
 
 namespace GammaLibrary.Enhancements
 {
@@ -28,6 +31,42 @@ namespace GammaLibrary.Enhancements
         public WebClientEx(CookieContainer container) : this()
         {
             CookieContainer = container;
+        }
+
+        public new void DownloadFile(string address, string fileName)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            base.DownloadFile(address, fileName);
+        }
+
+        public new void DownloadFile(Uri address, string fileName)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            base.DownloadFile(address, fileName);
+        }
+
+        public new void DownloadFileAsync(Uri address, string fileName)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            base.DownloadFileAsync(address, fileName);
+        }
+
+        public new void DownloadFileAsync(Uri address, string fileName, object userToken)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            base.DownloadFileAsync(address, fileName, userToken);
+        }
+
+        public new Task DownloadFileTaskAsync(string address, string fileName)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            return base.DownloadFileTaskAsync(address, fileName);
+        }
+
+        public new Task DownloadFileTaskAsync(Uri address, string fileName)
+        {
+            Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            return base.DownloadFileTaskAsync(address, fileName);
         }
 
         protected override WebRequest GetWebRequest(Uri address)

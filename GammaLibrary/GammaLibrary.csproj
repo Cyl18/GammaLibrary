@@ -10,7 +10,8 @@
     <PackageProjectUrl>https://github.com/Cyl18/GammaLibrary</PackageProjectUrl>
     <PackageIconUrl>https://avatars3.githubusercontent.com/u/14993992</PackageIconUrl>
     <RepositoryUrl>https://github.com/Cyl18/GammaLibrary</RepositoryUrl>
-    <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
+    <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+    <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
   </PropertyGroup>
 
   <ItemGroup>
