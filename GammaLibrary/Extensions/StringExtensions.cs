@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Numerics;
+using System.Runtime.InteropServices;
+using System.Security;
 using System.Text;
 
 namespace GammaLibrary.Extensions
@@ -34,12 +36,12 @@ namespace GammaLibrary.Extensions
         public static Uri ToUri(this string str) => new Uri(str);
 
         public static string GetFirstPart(this string source, char separator) => source.Split(separator).First();
-        public static string GetFirstPart(this string source, string separator) => source.Split(source.AsArray(), StringSplitOptions.None).First();
+        public static string GetFirstPart(this string source, string separator) => source.Split(separator.AsArray(), StringSplitOptions.None).First();
 
         public static string GetLastPart(this string source, char separator) => source.Split(separator).Last();
-        public static string GetLastPart(this string source, string separator) => source.Split(source.AsArray(), StringSplitOptions.None).Last();
+        public static string GetLastPart(this string source, string separator) => source.Split(separator.AsArray(), StringSplitOptions.None).Last();
 
-        public static string[] Split(this string source, string separator) => source.Split(source.AsArray(), StringSplitOptions.None);
+        public static string[] Split(this string source, string separator) => source.Split(separator.AsArray(), StringSplitOptions.None);
 
         public static string RemoveFirstChar(this string str) => str.Substring(1);
         public static string RemoveLastChar(this string str) => str.Substring(0, str.Length - 1);
@@ -48,5 +50,19 @@ namespace GammaLibrary.Extensions
 
         public static bool IsNullOrEmpty(this string str) => string.IsNullOrEmpty(str);
         public static bool IsNullOrWhiteSpace(this string str) => string.IsNullOrWhiteSpace(str);
+
+        public static string GetString(this SecureString value)
+        {
+            var valuePtr = IntPtr.Zero;
+            try
+            {
+                valuePtr = Marshal.SecureStringToGlobalAllocUnicode(value);
+                return Marshal.PtrToStringUni(valuePtr);
+            }
+            finally
+            {
+                Marshal.ZeroFreeGlobalAllocUnicode(valuePtr);
+            }
+        }
     }
 }
