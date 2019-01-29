@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Net;
 using System.Net.Http;
 using System.Text;
 using System.Threading;
@@ -68,5 +69,34 @@ namespace GammaLibrary.Extensions
                 progress?.Report(totalBytesRead);
             }
         }
+
+        public static async Task<string> PostStringAsync(this HttpClient client, string address, HttpContent data)
+        {
+            var response = await client.PostAsync(address, data);
+            response.EnsureSuccessStatusCode();
+            return await response.Content.ReadAsStringAsync();
+        }
+
+        public static async Task<T> GetJsonAsync<T>(this HttpClient client, string address)
+        {
+            var str = await client.GetStringAsync(address).ConfigureAwait(false);
+            return str.JsonDeserialize<T>();
+        }
+
+        public static async Task<T> PostJsonAsync<T>(this HttpClient client, string address, HttpContent data)
+        {
+            var str = await client.PostStringAsync(address, data).ConfigureAwait(false);
+            return str.JsonDeserialize<T>();
+        }
+
+        public static async Task<T> PostJsonAsync<T>(this HttpClient client, string address, Dictionary<string, string> data)
+        {
+            var str = await client.PostStringAsync(address, new FormUrlEncodedContent(data)).ConfigureAwait(false);
+            return str.JsonDeserialize<T>();
+        }
+    }
+
+    public class HttpForm : Dictionary<string, string>
+    {
     }
 }

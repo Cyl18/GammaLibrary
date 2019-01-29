@@ -135,5 +135,17 @@ namespace GammaLibrary.Extensions
                 progress.Report((pe.BytesReceived, pe.ProgressPercentage, pe.TotalBytesToReceive));
             }
         }
+
+        public static async Task<T> GetJsonAsync<T>(this WebClient client, string address)
+        {
+            var str = await client.DownloadStringTaskAsync(address).ConfigureAwait(false);
+            return str.JsonDeserialize<T>();
+        }
+
+        public static async Task<T> PostJsonAsync<T>(this WebClient client, string address, string data)
+        {
+            var str = await client.UploadStringTaskAsync(address, data).ConfigureAwait(false);
+            return str.JsonDeserialize<T>();
+        }
     }
 }
