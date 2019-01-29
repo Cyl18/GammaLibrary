@@ -15,7 +15,7 @@ namespace GammaLibrary.Extensions
         public static async Task DownloadAsync(this HttpClient client, string requestUri, string destination,
             IProgress<double> progress = default, CancellationToken cancellationToken = default)
         {
-            Directory.CreateDirectory(Path.GetDirectoryName(destination));
+            Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(destination)));
             using (var fs = File.OpenWrite(destination))
             {
                 await client.DownloadAsync(requestUri, fs, progress, cancellationToken);
