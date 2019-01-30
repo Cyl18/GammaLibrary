@@ -33,7 +33,7 @@ namespace GammaLibrary.Enhancements
             set => MessageHandler.CookieContainer = value;
         }
 
-        public HttpClientEx()
+        public HttpClientEx() : this(new HttpClientHandler())
         {
         }
 

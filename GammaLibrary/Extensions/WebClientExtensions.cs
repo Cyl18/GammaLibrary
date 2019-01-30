@@ -138,13 +138,13 @@ namespace GammaLibrary.Extensions
 
         public static async Task<T> GetJsonAsync<T>(this WebClient client, string address)
         {
-            var str = await client.DownloadStringTaskAsync(address).ConfigureAwait(false);
+            var str = await client.DownloadStringTaskAsync(address);
             return str.JsonDeserialize<T>();
         }
 
         public static async Task<T> PostJsonAsync<T>(this WebClient client, string address, string data)
         {
-            var str = await client.UploadStringTaskAsync(address, data).ConfigureAwait(false);
+            var str = await client.UploadStringTaskAsync(address, data);
             return str.JsonDeserialize<T>();
         }
     }

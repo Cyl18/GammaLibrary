@@ -62,9 +62,9 @@ namespace GammaLibrary.Extensions
             var buffer = new byte[bufferSize];
             long totalBytesRead = 0;
             int bytesRead;
-            while ((bytesRead = await source.ReadAsync(buffer, 0, buffer.Length, cancellationToken).ConfigureAwait(false)) != 0)
+            while ((bytesRead = await source.ReadAsync(buffer, 0, buffer.Length, cancellationToken)) != 0)
             {
-                await destination.WriteAsync(buffer, 0, bytesRead, cancellationToken).ConfigureAwait(false);
+                await destination.WriteAsync(buffer, 0, bytesRead, cancellationToken);
                 totalBytesRead += bytesRead;
                 progress?.Report(totalBytesRead);
             }
@@ -77,22 +77,28 @@ namespace GammaLibrary.Extensions
             return await response.Content.ReadAsStringAsync();
         }
 
+        public static Task<string> PostStringAsync(this HttpClient client, string address, Dictionary<string, string> data)
+        {
+            return client.PostStringAsync(address, new FormUrlEncodedContent(data));
+        }
+
         public static async Task<T> GetJsonAsync<T>(this HttpClient client, string address)
         {
-            var str = await client.GetStringAsync(address).ConfigureAwait(false);
+            var str = await client.GetStringAsync(address);
             return str.JsonDeserialize<T>();
         }
 
         public static async Task<T> PostJsonAsync<T>(this HttpClient client, string address, HttpContent data)
         {
-            var str = await client.PostStringAsync(address, data).ConfigureAwait(false);
+            var response = await client.PostAsync(address, data);
+            response.EnsureSuccessStatusCode();
+            var str = await response.Content.ReadAsStringAsync();
             return str.JsonDeserialize<T>();
         }
 
-        public static async Task<T> PostJsonAsync<T>(this HttpClient client, string address, Dictionary<string, string> data)
+        public static Task<T> PostJsonAsync<T>(this HttpClient client, string address, Dictionary<string, string> data)
         {
-            var str = await client.PostStringAsync(address, new FormUrlEncodedContent(data)).ConfigureAwait(false);
-            return str.JsonDeserialize<T>();
+            return client.PostJsonAsync<T>(address, new FormUrlEncodedContent(data));
         }
     }
 

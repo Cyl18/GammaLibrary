@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GammaLibrary.Enhancements
@@ -35,6 +36,20 @@ namespace GammaLibrary.Enhancements
         {
             await Task.Delay(timeSpan);
             return action();
+        }
+
+        public static async Task<TResult> WaitAsync<TResult>(this Task<TResult> task, TimeSpan timeout)
+        {
+            using (var timeoutCancellationTokenSource = new CancellationTokenSource())
+            {
+                var delayTask = Task.Delay(timeout, timeoutCancellationTokenSource.Token);
+                if (await Task.WhenAny(task, delayTask) == task)
+                {
+                    timeoutCancellationTokenSource.Cancel();
+                    return await task;
+                }
+                throw new TimeoutException("The operation has timed out.");
+            }
         }
     }
 }
