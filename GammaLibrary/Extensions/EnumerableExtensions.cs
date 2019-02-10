@@ -26,7 +26,7 @@ namespace GammaLibrary.Extensions
             return collection[Rng.Next(collection.Length)];
         }
 
-        public static void Randomize<T>(this IList<T> list)
+        public static void Shuffle<T>(this IList<T> list)
         {
             var n = list.Count;
             while (n > 1)
@@ -39,7 +39,7 @@ namespace GammaLibrary.Extensions
             }
         }
 
-        public static void Randomize<T>(this IList<T> list, Random rng)
+        public static void Shuffle<T>(this IList<T> list, Random rng)
         {
             var n = list.Count;
             while (n > 1)
@@ -59,7 +59,7 @@ namespace GammaLibrary.Extensions
             return clist;
         }
 
-        public static string Join<T>(this IEnumerable<T> enumerable, string separator = ", ", string prefix = "{", string postfix = "}")
+        public static string Connect<T>(this IEnumerable<T> enumerable, string separator = ", ", string prefix = "", string postfix = "")
         {
             return $"{prefix}{string.Join(separator, enumerable)}{postfix}";
         }

@@ -96,7 +96,7 @@ namespace GammaLibrary
             {
                 Arrays.Add(key, strArray);
             }
-            Trace.WriteLine($"Loaded array: [key: {key}, value: {strArray.Join()}]", nameof(Localization));
+            Trace.WriteLine($"Loaded array: [key: {key}, value: {strArray.Connect()}]", nameof(Localization));
         }
 
         private static void LoadInternal(JObject obj, string key)
