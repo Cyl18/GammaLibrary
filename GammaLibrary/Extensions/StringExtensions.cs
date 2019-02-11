@@ -23,6 +23,10 @@ namespace GammaLibrary.Extensions
         public static bool TryConvertToInt(this string str, out int num) => int.TryParse(str, out num);
         public static int ToInt(this string str) => int.Parse(str);
 
+        public static bool IsLong(this string str) => long.TryParse(str, out _);
+        public static bool TryConvertToLong(this string str, out long num) => long.TryParse(str, out num);
+        public static long ToLong(this string str) => long.Parse(str);
+
         public static bool IsDouble(this string str) => double.TryParse(str, out _);
         public static bool TryConvertToDouble(this string str, out double num) => double.TryParse(str, out num);
         public static double ToDouble(this string str) => double.Parse(str);
@@ -36,15 +40,16 @@ namespace GammaLibrary.Extensions
         public static Uri ToUri(this string str) => new Uri(str);
 
         public static string GetFirstPart(this string source, char separator) => source.Split(separator).First();
-        public static string GetFirstPart(this string source, string separator) => source.Split(separator.AsArray(), StringSplitOptions.None).First();
+        public static string GetFirstPart(this string source, string separator) => source.Split(separator).First();
 
         public static string GetLastPart(this string source, char separator) => source.Split(separator).Last();
-        public static string GetLastPart(this string source, string separator) => source.Split(separator.AsArray(), StringSplitOptions.None).Last();
+        public static string GetLastPart(this string source, string separator) => source.Split(separator).Last();
 
         public static string[] Split(this string source, string separator) => source.Split(separator.AsArray(), StringSplitOptions.None);
 
         public static string RemoveFirstChar(this string str) => str.Substring(1);
         public static string RemoveLastChar(this string str) => str.Substring(0, str.Length - 1);
+        public static string SubStringFromLast(this string str, int length) => str.Substring(0, str.Length - length);
 
         public static string RemoveLastChars(this string str, int count) => str.Substring(0, str.Length - count);
 
