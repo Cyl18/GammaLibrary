@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
-using GammaLibrary.Extensions;
-[assembly: Fody.ConfigureAwait(false)]
+﻿[assembly: Fody.ConfigureAwait(false)]
 
 namespace GammaLibrary
 {
+    // TODO: Context
     public class GammaEngine
     {
         public void Initialize()

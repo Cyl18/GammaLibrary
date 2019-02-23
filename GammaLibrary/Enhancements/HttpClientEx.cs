@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Net.Http;
-using System.Text;
 
 namespace GammaLibrary.Enhancements
 {
@@ -33,8 +30,9 @@ namespace GammaLibrary.Enhancements
             set => MessageHandler.CookieContainer = value;
         }
 
-        public HttpClientEx() : this(new HttpClientHandler())
+        public HttpClientEx()
         {
+            MessageHandler = new HttpClientHandler();
         }
 
         public HttpClientEx(HttpMessageHandler handler) : base(handler)

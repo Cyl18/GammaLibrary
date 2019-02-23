@@ -38,6 +38,8 @@ namespace GammaLibrary
                     Instance = new T();
                     Save();
                 }
+
+                Instance.OnUpdated();
             }
             catch (Exception e)
             {
@@ -46,9 +48,16 @@ namespace GammaLibrary
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
-        public static void Save() => Instance.ToJsonString().SaveToFile(SavePath);
+        public static void Save()
+        {
+            Instance.ToJsonString().SaveToFile(SavePath);
+            Instance.OnSaved();
+        }
 
-        public static string SavePath => typeof(T).GetCustomAttribute<ConfigurationAttribute>().SaveName + ".json";
+        protected virtual void OnUpdated() {}
+        protected virtual void OnSaved() {}
+
+        public static string SavePath => $"{typeof(T).GetCustomAttribute<ConfigurationAttribute>().SaveName}.json";
     }
 
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
