@@ -12,7 +12,6 @@ namespace GammaLibrary.Enhancements
 {
     public class WebClientEx : WebClient
     {
-        private IProgress<(long bytesReceived, int percentage, long bytesToReceive)> progressHandler;
         public CookieContainer CookieContainer { get; set; } = new CookieContainer();
         public bool AutoRetry { get; set; } = true;
         public int MaxRetries { get; set; } = 2;
@@ -24,7 +23,6 @@ namespace GammaLibrary.Enhancements
 
         public WebClientEx(IProgress<(long bytesReceived, int percentage, long bytesToReceive)> progress) : this()
         {
-            progressHandler = progress;
             DownloadProgressChanged += (s, e) => progress.Report((e.BytesReceived, e.ProgressPercentage, e.TotalBytesToReceive));
         }
 

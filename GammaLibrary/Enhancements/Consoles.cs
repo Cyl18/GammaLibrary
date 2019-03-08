@@ -13,7 +13,13 @@ namespace GammaLibrary.Enhancements
             Console.WriteLine(str);
             return Console.ReadLine();
         }
-        
+
+        public static string Read(string str)
+        {
+            Console.Write(str);
+            return Console.ReadLine();
+        }
+
         public static string ReadPassword()
         {
             var password = string.Empty;

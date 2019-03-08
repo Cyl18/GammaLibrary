@@ -73,5 +73,47 @@ namespace GammaLibrary.Extensions
         {
             return new List<T> { obj };
         }
+
+        public static bool TryGet<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, out TValue value)
+        {
+            var flag = dictionary.ContainsKey(key);
+            value = flag ? dictionary[key] : default;
+            return flag;
+        }
+
+        public static (bool success, TValue value) SafeGet<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
+        {
+            var flag = dictionary.ContainsKey(key);
+            var value = flag ? dictionary[key] : default;
+            return (flag, value);
+        }
+
+        public static bool TryGet<TValue>(this IList<TValue> list, int index, out TValue value)
+        {
+            var flag = list.Count <= index;
+            value = flag ? list[index] : default;
+            return flag;
+        }
+
+        public static (bool success, TValue value) SafeGet<TValue>(this IList<TValue> list, int index)
+        {
+            var flag = list.Count <= index;
+            var value = flag ? list[index] : default;
+            return (flag, value);
+        }
+
+        public static bool TryGet<TValue>(this TValue[] list, int index, out TValue value)
+        {
+            var flag = list.Length <= index;
+            value = flag ? list[index] : default;
+            return flag;
+        }
+
+        public static (bool success, TValue value) SafeGet<TValue>(this TValue[] list, int index)
+        {
+            var flag = list.Length <= index;
+            var value = flag ? list[index] : default;
+            return (flag, value);
+        }
     }
 }
