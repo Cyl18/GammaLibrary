@@ -35,9 +35,7 @@ namespace GammaLibrary.Extensions
         public static bool TryConvertToBigInteger(this string str, out BigInteger num) => BigInteger.TryParse(str, out num);
         public static BigInteger ToBigInteger(this string str) => BigInteger.Parse(str);
 
-        public static string RemovePrefix(this string str, string prefix) => str.StartsWith(prefix) ? str.Substring(prefix.Length) : str;
-        //public static string RemovePrefix(this string str, string prefix) => str.StartsWith(prefix) ? str.Substring(prefix.Length) : str;
-        //TODO
+        public static string CutPrefix(this string str, string prefix) => str.StartsWith(prefix) ? str.Substring(prefix.Length) : str;
 
         public static Uri ToUri(this string str) => new Uri(str);
 
