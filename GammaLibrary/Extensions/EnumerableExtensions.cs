@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace GammaLibrary.Extensions
@@ -115,5 +116,7 @@ namespace GammaLibrary.Extensions
             var value = flag ? list[index] : default;
             return (flag, value);
         }
+
+        public static bool Empty<T>(this IEnumerable<T> enumerable) => !enumerable.Any();
     }
 }
