@@ -19,6 +19,10 @@ namespace GammaLibrary.Extensions
 
         public static string ToHexString(this byte[] bytes) => BitConverter.ToString(bytes).Replace("-", "");
 
+        public static bool IsShort(this string str) => short.TryParse(str, out _);
+        public static bool TryConvertToShort(this string str, out short num) => short.TryParse(str, out num);
+        public static short ToShort(this string str) => short.Parse(str);
+
         public static bool IsInt(this string str) => int.TryParse(str, out _);
         public static bool TryConvertToInt(this string str, out int num) => int.TryParse(str, out num);
         public static int ToInt(this string str) => int.Parse(str);
@@ -49,11 +53,11 @@ namespace GammaLibrary.Extensions
 
         public static string[] Split(this string source, string separator) => source.Split(separator.AsArray(), StringSplitOptions.None);
 
-        public static string RemoveFirstChar(this string str) => str.Substring(1);
-        public static string RemoveLastChar(this string str) => str.Substring(0, str.Length - 1);
-        public static string SubStringFromLast(this string str, int length) => str.Substring(0, str.Length - length);
+        public static string RemoveFirstChar(this string str) => str.Length > 0 ? str.Substring(1) : str;
+        public static string RemoveLastChar(this string str) => str.Length > 0 ? str.Substring(0, str.Length - 1) : str;
+        public static string SubStringFromLast(this string str, int length) => str.Length > 1 ? str.Substring(0, str.Length - length) : str;
 
-        public static string RemoveSurroundChar(this string str) => str.Substring(1, str.Length - 2);
+        public static string RemoveSurroundChars(this string str) => str.Length > 1 ? str.Substring(1, str.Length - 2) : string.Empty;
 
         public static string RemoveLastChars(this string str, int count) => str.Substring(0, str.Length - count);
 

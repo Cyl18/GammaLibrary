@@ -17,6 +17,15 @@ namespace GammaLibrary.Extensions
             }
         }
 
+        public static IEnumerable<T> DoForAll<T>(this IEnumerable<T> enumerable, Action<T> action)
+        {
+            foreach (var item in enumerable)
+            {
+                action(item);
+                yield return item;
+            }
+        }
+
         public static T PickOne<T>(this IList<T> collection)
         {
             return collection[Rng.Next(collection.Count)];
@@ -25,6 +34,16 @@ namespace GammaLibrary.Extensions
         public static T PickOne<T>(this T[] collection)
         {
             return collection[Rng.Next(collection.Length)];
+        }
+
+        public static T PickOne<T>(this IList<T> collection, Random rng)
+        {
+            return collection[rng.Next(collection.Count)];
+        }
+
+        public static T PickOne<T>(this T[] collection, Random rng)
+        {
+            return collection[rng.Next(collection.Length)];
         }
 
         public static void Shuffle<T>(this IList<T> list)
@@ -55,9 +74,9 @@ namespace GammaLibrary.Extensions
 
         public static List<T> CloneAndSort<T>(this IEnumerable<T> list)
         {
-            var clist = new List<T>(list);
-            clist.Sort();
-            return clist;
+            var result = new List<T>(list);
+            result.Sort();
+            return result;
         }
 
         public static string Connect<T>(this IEnumerable<T> enumerable, string separator = ", ", string prefix = "", string postfix = "")
@@ -75,6 +94,30 @@ namespace GammaLibrary.Extensions
             return new List<T> { obj };
         }
 
+        public static T[] AsArray<T>(this (T, T) obj)
+        {
+            var (item1, item2) = obj;
+            return new [] { item1, item2 };
+        }
+
+        public static List<T> AsList<T>(this (T, T) obj)
+        {
+            var (item1, item2) = obj;
+            return new List<T> { item1, item2 };
+        }
+
+        public static T[] AsArray<T>(this (T, T, T) obj)
+        {
+            var (item1, item2, item3) = obj;
+            return new[] { item1, item2, item3 };
+        }
+
+        public static List<T> AsList<T>(this (T, T, T) obj)
+        {
+            var (item1, item2, item3) = obj;
+            return new List<T> { item1, item2, item3 };
+        }
+
         public static bool TryGet<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, out TValue value)
         {
             var flag = dictionary.ContainsKey(key);
@@ -82,7 +125,7 @@ namespace GammaLibrary.Extensions
             return flag;
         }
 
-        public static (bool success, TValue value) SafeGet<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
+        public static (bool success, TValue value) SafelyGet<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
         {
             var flag = dictionary.ContainsKey(key);
             var value = flag ? dictionary[key] : default;
@@ -96,7 +139,7 @@ namespace GammaLibrary.Extensions
             return flag;
         }
 
-        public static (bool success, TValue value) SafeGet<TValue>(this IList<TValue> list, int index)
+        public static (bool success, TValue value) SafelyGet<TValue>(this IList<TValue> list, int index)
         {
             var flag = list.Count <= index;
             var value = flag ? list[index] : default;
@@ -110,13 +153,13 @@ namespace GammaLibrary.Extensions
             return flag;
         }
 
-        public static (bool success, TValue value) SafeGet<TValue>(this TValue[] list, int index)
+        public static (bool success, TValue value) SafelyGet<TValue>(this TValue[] list, int index)
         {
             var flag = list.Length <= index;
             var value = flag ? list[index] : default;
             return (flag, value);
         }
 
-        public static bool Empty<T>(this IEnumerable<T> enumerable) => !enumerable.Any();
+        public static bool IsEmpty<T>(this IEnumerable<T> enumerable) => !enumerable.Any();
     }
 }

@@ -5,6 +5,7 @@ using System.Text;
 
 namespace GammaLibrary
 {
+    // TODO Obsolete this
     public static class FileSystem
     {
         public static string ReadFile(string path)
