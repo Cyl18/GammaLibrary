@@ -37,12 +37,12 @@ namespace GammaLibrary.Enhancements
 
         public HttpClientEx(HttpMessageHandler handler) : base(handler)
         {
-            MessageHandler = handler as HttpClientHandler;
+            MessageHandler = (HttpClientHandler) handler;
         }
 
         public HttpClientEx(HttpMessageHandler handler, bool disposeHandler) : base(handler, disposeHandler)
         {
-            MessageHandler = handler as HttpClientHandler;
+            MessageHandler = (HttpClientHandler) handler;
         }
     }
 }

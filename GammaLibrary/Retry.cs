@@ -2,9 +2,10 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-
+#nullable disable
 namespace GammaLibrary
 {
+    //TODO retry with async
     public static class Retry
     {
         public static void Do(
@@ -24,9 +25,9 @@ namespace GammaLibrary
             TimeSpan retryInterval,
             int maxAttemptCount = 3)
         {
-            var exceptions = new List<Exception>();
+            var exceptions = new List<Exception>(4);
 
-            for (int attempted = 0; attempted < maxAttemptCount; attempted++)
+            for (var attempted = 0; attempted < maxAttemptCount; attempted++)
             {
                 try
                 {
@@ -45,3 +46,4 @@ namespace GammaLibrary
         }
     }
 }
+#nullable enable

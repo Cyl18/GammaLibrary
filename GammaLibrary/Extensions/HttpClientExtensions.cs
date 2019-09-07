@@ -6,6 +6,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+// ReSharper disable AssignNullToNotNullAttribute
 
 namespace GammaLibrary.Extensions
 {
@@ -13,40 +14,36 @@ namespace GammaLibrary.Extensions
     {
 
         public static async Task DownloadAsync(this HttpClient client, string requestUri, string destination,
-            IProgress<double> progress = default, CancellationToken cancellationToken = default)
+            IProgress<double>? progress = default, CancellationToken cancellationToken = default)
         {
+            if (destination is null) throw new ArgumentNullException(nameof(destination));
+
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(destination)));
-            using (var fs = File.OpenWrite(destination))
-            {
-                await client.DownloadAsync(requestUri, fs, progress, cancellationToken);
-            }
+            using var fs = File.OpenWrite(destination);
+            await client.DownloadAsync(requestUri, fs, progress, cancellationToken);
         }
 
 
         public static async Task DownloadAsync(this HttpClient client, string requestUri, Stream destination,
-            IProgress<double> progress = default, CancellationToken cancellationToken = default)
+            IProgress<double>? progress = default, CancellationToken cancellationToken = default)
         {
-            using (var response = await client.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead))
+            using var response = await client.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+            var contentLength = response.Content.Headers.ContentLength;
+            response.EnsureSuccessStatusCode();
+
+            using var download = await response.Content.ReadAsStreamAsync();
+            if (progress == null || !contentLength.HasValue)
             {
-                var contentLength = response.Content.Headers.ContentLength;
-                response.EnsureSuccessStatusCode();
-
-                using (var download = await response.Content.ReadAsStreamAsync())
-                {
-                    if (progress == null || !contentLength.HasValue)
-                    {
-                        await download.CopyToAsync(destination);
-                        return;
-                    }
-
-                    var relativeProgress = new Progress<long>(totalBytes => progress.Report((float)totalBytes / contentLength.Value));
-                    await download.CopyToAsync(destination, 81920, relativeProgress, cancellationToken);
-                    progress.Report(1);
-                }
+                await download.CopyToAsync(destination);
+                return;
             }
+
+            var relativeProgress = new Progress<long>(totalBytes => progress.Report((float)totalBytes / contentLength.Value));
+            await download.CopyToAsync(destination, 81920, relativeProgress, cancellationToken);
+            progress.Report(1);
         }
 
-        public static async Task CopyToAsync(this Stream source, Stream destination, int bufferSize = 8192, IProgress<long> progress = null, CancellationToken cancellationToken = default)
+        public static async Task CopyToAsync(this Stream source, Stream destination, int bufferSize = 8192, IProgress<long>? progress = default, CancellationToken cancellationToken = default)
         {
             if (source == null)
                 throw new ArgumentNullException(nameof(source));

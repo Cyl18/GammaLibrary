@@ -20,7 +20,7 @@ namespace GammaLibrary.Enhancements
             return Console.ReadLine();
         }
 
-        public static string ReadPassword()
+        public static string? ReadPassword()
         {
             var password = string.Empty;
             while (true)

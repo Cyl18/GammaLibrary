@@ -6,6 +6,6 @@ namespace GammaLibrary.Extensions
 {
     public static class Caster
     {
-        public static object ToObject<T>(this T obj) => obj;
+        public static object? ToObject<T>(this T obj) => obj;
     }
 }

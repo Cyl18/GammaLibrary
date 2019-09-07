@@ -11,13 +11,13 @@ namespace GammaLibrary.Extensions
 
         public static T Print<T>(this T obj) //TODO customizable to string
         {
-            Printer(obj.ToString());
+            Printer(obj.ToStringX());
             return obj;
         }
 
         public static T PrintFormat<T>(this T obj, string format)
         {
-            FormatPrinter(format, obj.ToString());
+            FormatPrinter(format, obj.ToStringX());
             return obj;
         }
     }

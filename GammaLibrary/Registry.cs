@@ -8,15 +8,13 @@ using GammaLibrary.Extensions;
 
 namespace GammaLibrary
 {
+    // TODO 写法有问题 要分两个类.
     public class Registry<TKey, TValue> : IEnumerable<KeyValuePair<TKey, TValue>>
     {
         private readonly Func<TValue, TKey> keySelector;
         private readonly Dictionary<TKey, TValue> registry = new Dictionary<TKey, TValue>();
         public event Action<TKey, TValue> OnRegister;
 
-        public Registry()
-        {
-        }
         public Registry(Func<TValue, TKey> keySelector)
         {
             this.keySelector = keySelector;

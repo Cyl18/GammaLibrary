@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 
 namespace GammaLibrary.Extensions
 {
@@ -8,8 +9,8 @@ namespace GammaLibrary.Extensions
         {
             if (obj == null) return "null";
             var originalToString = obj.ToString();
-
-            return originalToString != obj.GetType().ToString() ? originalToString : obj.ToJsonString();
+            
+            return originalToString != obj.GetType().ToString() || obj is Type ? originalToString : obj.ToJsonString();
         }
     }
 }

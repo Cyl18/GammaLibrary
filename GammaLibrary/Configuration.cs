@@ -4,8 +4,10 @@ using System.Diagnostics;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using System.Runtime.Serialization;
 using System.Text;
 using GammaLibrary.Extensions;
+#nullable enable
 
 namespace GammaLibrary
 {
@@ -18,6 +20,7 @@ namespace GammaLibrary
             get
             {
                 if (_instance == null) Update();
+                if (_instance == null) throw new ConfigInitException($"{SavePath} not loaded.");
                 return _instance;
             }
             protected set => _instance = value;
@@ -69,5 +72,19 @@ namespace GammaLibrary
         {
             SaveName = saveName;
         }
+    }
+
+    [Serializable]
+    public class ConfigInitException : Exception
+    {
+
+        public ConfigInitException()
+        {
+        }
+
+        public ConfigInitException(string message) : base(message)
+        {
+        }
+
     }
 }
