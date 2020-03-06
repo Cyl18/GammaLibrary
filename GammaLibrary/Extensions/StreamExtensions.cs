@@ -14,10 +14,10 @@ namespace GammaLibrary.Extensions
             return reader.ReadToEnd();
         }
 
-        public static async Task<string> ReadToEndAsync(this Stream stream)
+        public static Task<string> ReadToEndAsync(this Stream stream)
         {
             using var reader = stream.CreateStreamReader();
-            return await reader.ReadToEndAsync();
+            return reader.ReadToEndAsync();
         }
 
         public static StreamReader CreateStreamReader(this Stream stream)

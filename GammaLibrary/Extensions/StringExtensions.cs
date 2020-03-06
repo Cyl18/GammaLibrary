@@ -8,7 +8,8 @@ using System.Security;
 using System.Text;
 
 namespace GammaLibrary.Extensions
-{
+{ 
+    [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
     public static class StringExtensions
     {
         public static byte[] ToUTF8Bytes(this string str) => Encoding.UTF8.GetBytes(str);
@@ -27,6 +28,14 @@ namespace GammaLibrary.Extensions
         public static bool TryConvertToShort(this string str, out short num) => short.TryParse(str, out num);
         public static short ToShort(this string str) => short.Parse(str);
 
+        public static bool IsUShort(this string str) => ushort.TryParse(str, out _);
+        public static bool TryConvertToUShort(this string str, out ushort num) => ushort.TryParse(str, out num);
+        public static ushort ToUShort(this string str) => ushort.Parse(str);
+
+        public static bool IsDecimal(this string str) => decimal.TryParse(str, out _);
+        public static bool TryConvertToDecimal(this string str, out decimal num) => decimal.TryParse(str, out num);
+        public static decimal ToDecimal(this string str) => decimal.Parse(str);
+
         public static bool IsInt(this string str) => int.TryParse(str, out _);
         public static bool TryConvertToInt(this string str, out int num) => int.TryParse(str, out num);
         public static int ToInt(this string str) => int.Parse(str);
@@ -38,6 +47,10 @@ namespace GammaLibrary.Extensions
         public static bool IsLong(this string str) => long.TryParse(str, out _);
         public static bool TryConvertToLong(this string str, out long num) => long.TryParse(str, out num);
         public static long ToLong(this string str) => long.Parse(str);
+
+        public static bool IsULong(this string str) => ulong.TryParse(str, out _);
+        public static bool TryConvertToULong(this string str, out ulong num) => ulong.TryParse(str, out num);
+        public static ulong ToULong(this string str) => ulong.Parse(str);
 
         public static bool IsFloat(this string str) => float.TryParse(str, out _);
         public static bool TryConvertToFloat(this string str, out float num) => float.TryParse(str, out num);
@@ -51,10 +64,17 @@ namespace GammaLibrary.Extensions
         public static bool TryConvertToBigInteger(this string str, out BigInteger num) => BigInteger.TryParse(str, out num);
         public static BigInteger ToBigInteger(this string str) => BigInteger.Parse(str);
 
+        public static bool IsByte(this string str) => byte.TryParse(str, out _);
+        public static bool TryConvertToByte(this string str, out byte num) => byte.TryParse(str, out num);
+        public static byte ToByte(this string str) => byte.Parse(str);
+
+        public static bool IsSByte(this string str) => sbyte.TryParse(str, out _);
+        public static bool TryConvertToSByte(this string str, out sbyte num) => sbyte.TryParse(str, out num);
+        public static sbyte ToSByte(this string str) => sbyte.Parse(str);
         #endregion
 
         public static string RemovePrefix(this string str, string prefix) => str.StartsWith(prefix) ? str.Substring(prefix.Length) : str;
-        public static string RemovePostfix(this string str, string postfix) => str.EndsWith(postfix) ? str.SubStringFromLast(postfix.Length) : str;
+        public static string RemovePostfix(this string str, string postfix) => str.EndsWith(postfix) ? str.SubstringFromLast(postfix.Length) : str;
 
         public static Uri ToUri(this string str) => new Uri(str);
 
@@ -67,16 +87,16 @@ namespace GammaLibrary.Extensions
         public static string[] Split(this string source, string separator, StringSplitOptions options = StringSplitOptions.None) => source.Split(separator.AsArray(), options);
 
         public static string RemoveFirstChar(this string str) => str.Length > 0 ? str.Substring(1) : str;
-        public static string RemoveLastChar(this string str) => str.Length > 0 ? str.SubStringFromLast(1) : str;
+        public static string RemoveLastChar(this string str) => str.Length > 0 ? str.SubstringFromLast(1) : str;
         public static string RemoveSurroundChars(this string str, int count = 1) => str.Length >= 2 * count ? str.Substring(count, str.Length - (count + 1)) : string.Empty;
 
-        public static string SubStringFromLast(this string str, int length) => str.Substring(0, str.Length - length);
+        public static string SubstringFromLast(this string str, int length) => str.Substring(0, str.Length - length);
 
         public static bool IsNullOrEmpty(this string str) => string.IsNullOrEmpty(str);
         public static bool IsNullOrWhiteSpace(this string str) => string.IsNullOrWhiteSpace(str);
 
-        public static bool NotNullOrEmpty(this string str) => !string.IsNullOrEmpty(str);
-        public static bool NotNullOrWhiteSpace(this string str) => !string.IsNullOrWhiteSpace(str);
+        public static bool NotNullNorEmpty(this string str) => !string.IsNullOrEmpty(str);
+        public static bool NotNullNorWhiteSpace(this string str) => !string.IsNullOrWhiteSpace(str);
 
         public static string GetString(this SecureString value)
         {

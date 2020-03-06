@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-#nullable disable
+//#nullable disable
 namespace GammaLibrary
 {
     //TODO retry with async
@@ -13,7 +13,7 @@ namespace GammaLibrary
             TimeSpan retryInterval,
             int maxAttemptCount = 3)
         {
-            Do<object>(() =>
+            Do<object?>(() =>
             {
                 action();
                 return null;

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace GammaLibrary.Enhancements
 {
@@ -19,7 +20,7 @@ namespace GammaLibrary.Enhancements
             Console.Write(str);
             return Console.ReadLine();
         }
-
+        
         public static string? ReadPassword()
         {
             var password = string.Empty;

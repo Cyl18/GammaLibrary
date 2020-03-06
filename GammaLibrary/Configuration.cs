@@ -20,7 +20,6 @@ namespace GammaLibrary
             get
             {
                 if (_instance == null) Update();
-                if (_instance == null) throw new ConfigInitException($"{SavePath} not loaded.");
                 return _instance;
             }
             protected set => _instance = value;
@@ -29,25 +28,18 @@ namespace GammaLibrary
         [MethodImpl(MethodImplOptions.Synchronized)]
         public static void Update()
         {
-            try
+            var savePath = SavePath;
+            if (FileSystem.Exists(savePath))
             {
-                var savePath = SavePath;
-                if (FileSystem.Exists(savePath))
-                {
-                    Instance = FileSystem.ReadFile(savePath).JsonDeserialize<T>();
-                }
-                else
-                {
-                    Instance = new T();
-                    Save();
-                }
+                Instance = FileSystem.ReadFile(savePath).JsonDeserialize<T>();
+            }
+            else
+            {
+                Instance = new T();
+                Save();
+            }
 
-                Instance.OnUpdated();
-            }
-            catch (Exception e)
-            {
-                Trace.WriteLine(e, nameof(Configuration<T>));
-            }
+            Instance.OnUpdated();
         }
 
         [MethodImpl(MethodImplOptions.Synchronized)]
@@ -57,8 +49,8 @@ namespace GammaLibrary
             Instance.OnSaved();
         }
 
-        protected virtual void OnUpdated() {}
-        protected virtual void OnSaved() {}
+        protected virtual void OnUpdated() { }
+        protected virtual void OnSaved() { }
 
         public static string SavePath => $"{typeof(T).GetCustomAttribute<ConfigurationAttribute>().SaveName}.json";
     }
@@ -74,17 +66,4 @@ namespace GammaLibrary
         }
     }
 
-    [Serializable]
-    public class ConfigInitException : Exception
-    {
-
-        public ConfigInitException()
-        {
-        }
-
-        public ConfigInitException(string message) : base(message)
-        {
-        }
-
-    }
 }

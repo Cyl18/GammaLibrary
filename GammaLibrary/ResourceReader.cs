@@ -21,7 +21,7 @@ namespace GammaLibrary
             using var stream = GetStream(assembly, name);
             return stream == null ? null : new StreamReader(stream).ReadToEnd();
         }
-
+        
         public static string? Read(string name) => Read(Assembly.GetCallingAssembly(), name);
 
         public static async ValueTask<string?> ReadAsync(Assembly assembly, string name)
