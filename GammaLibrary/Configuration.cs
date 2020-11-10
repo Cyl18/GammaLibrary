@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -11,16 +12,17 @@ using GammaLibrary.Extensions;
 
 namespace GammaLibrary
 {
+    // TODO json太烂了 别用了
     public abstract class Configuration<T> where T : Configuration<T>, new()
     {
-        private static T _instance;
+        private static T? _instance;
 
         public static T Instance
         {
             get
             {
                 if (_instance == null) Update();
-                return _instance;
+                return _instance!;
             }
             protected set => _instance = value;
         }
@@ -29,9 +31,9 @@ namespace GammaLibrary
         public static void Update()
         {
             var savePath = SavePath;
-            if (FileSystem.Exists(savePath))
+            if (File.Exists(savePath))
             {
-                Instance = FileSystem.ReadFile(savePath).JsonDeserialize<T>();
+                Instance = File.ReadAllText(savePath).JsonDeserialize<T>();
             }
             else
             {
@@ -52,18 +54,26 @@ namespace GammaLibrary
         protected virtual void OnUpdated() { }
         protected virtual void OnSaved() { }
 
-        public static string SavePath => $"{typeof(T).GetCustomAttribute<ConfigurationAttribute>().SaveName}.json";
+        public static string SavePath => typeof(T).GetCustomAttribute<ConfigurationPathAttribute>().SaveName;
     }
 
-    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
-    public sealed class ConfigurationAttribute : Attribute
+    [AttributeUsage(AttributeTargets.Class, Inherited = false)]
+    public sealed class ConfigurationPathAttribute : Attribute
     {
         public string SaveName { get; }
 
-        public ConfigurationAttribute(string saveName)
+        public ConfigurationPathAttribute(string saveName)
         {
             SaveName = saveName;
         }
     }
 
+    [Obsolete("This is attribute is obsolete, please use ConfigurationPathAttribute instead. And you should add '.json' to the end.")]
+    [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
+    public sealed class ConfigurationAttribute : Attribute
+    {
+        public ConfigurationAttribute(string saveName)
+        {
+        }
+    }
 }

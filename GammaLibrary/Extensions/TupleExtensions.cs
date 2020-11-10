@@ -10,5 +10,7 @@ namespace GammaLibrary.Extensions
         {
             return condition ? (tuple.Item2, tuple.Item1) : tuple;
         }
+
+
     }
 }

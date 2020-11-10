@@ -11,6 +11,7 @@ using System.Collections.Specialized;
 using System.ComponentModel;
 using System.Threading;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 
 // ReSharper disable once CheckNamespace
 namespace System.Collections.Concurrent
@@ -20,7 +21,7 @@ namespace System.Collections.Concurrent
     /// </summary>
     /// <typeparam name="TKey">Specifies the type of the keys in this collection.</typeparam>
     /// <typeparam name="TValue">Specifies the type of the values in this collection.</typeparam>
-    [DebuggerDisplay("Count={Count}")]
+    [SuppressMessage("ReSharper", "ArrangeAccessorOwnerBody")]
     public class ObservableConcurrentDictionary<TKey, TValue> :
         ICollection<KeyValuePair<TKey, TValue>>, IDictionary<TKey, TValue>,
         INotifyCollectionChanged, INotifyPropertyChanged

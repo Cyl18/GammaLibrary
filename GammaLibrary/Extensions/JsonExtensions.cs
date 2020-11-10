@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using Newtonsoft.Json;
 
 namespace GammaLibrary.Extensions
@@ -8,25 +10,35 @@ namespace GammaLibrary.Extensions
     public static class JsonExtensions
     {
         private static readonly SerializeSettings SerializeSettings = new SerializeSettings();
-
-        public static string ToJsonString<T>(this T source)
+        public static bool UseLongRunning { get; set; }
+        public static string ToJsonString<T>(this T source, JsonSerializerSettings? settings = null)
         {
-            return JsonConvert.SerializeObject(source, SerializeSettings);
+            var realSettings = settings ?? SerializeSettings;
+            return JsonConvert.SerializeObject(source, realSettings);
         }
 
-        public static T JsonDeserialize<T>(this string source)
+        public static Task<string> ToJsonStringAsync<T>(this T source, JsonSerializerSettings? settings = null)
         {
-            return JsonConvert.DeserializeObject<T>(source, SerializeSettings);
+            var realSettings = settings ?? SerializeSettings;
+            return Task.Factory.StartNew(() => JsonConvert.SerializeObject(source, realSettings),
+                new CancellationToken(), UseLongRunning ? TaskCreationOptions.LongRunning : TaskCreationOptions.None,
+                TaskScheduler.Default);
+            // todo use HideScheduler when it can
         }
 
-        public static string ToJsonString<T>(this T source, JsonSerializerSettings settings)
+        public static T JsonDeserialize<T>(this string source, JsonSerializerSettings? settings = null)
         {
-            return JsonConvert.SerializeObject(source, settings);
+            var realSettings = settings ?? SerializeSettings;
+            return JsonConvert.DeserializeObject<T>(source, realSettings)!; // todo Wait for C# 9 and remove this '!'
         }
 
-        public static T JsonDeserialize<T>(this string source, JsonSerializerSettings settings)
+        public static Task<T> JsonDeserializeAsync<T>(this string source, JsonSerializerSettings? settings = null)
         {
-            return JsonConvert.DeserializeObject<T>(source, settings);
+            var realSettings = settings ?? SerializeSettings;
+            return Task.Factory.StartNew(() => JsonConvert.DeserializeObject<T>(source, realSettings)!,
+                new CancellationToken(), UseLongRunning ? TaskCreationOptions.LongRunning : TaskCreationOptions.None,
+                TaskScheduler.Default)!;
+            // todo use HideScheduler when it can
         }
     }
 
