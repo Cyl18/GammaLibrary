@@ -12,7 +12,7 @@ namespace GammaLibrary.Enhancements
             set => MessageHandler.UseProxy = value;
         }
 
-        public IWebProxy Proxy
+        public IWebProxy? Proxy
         {
             get => MessageHandler.Proxy;
             set => MessageHandler.Proxy = value;

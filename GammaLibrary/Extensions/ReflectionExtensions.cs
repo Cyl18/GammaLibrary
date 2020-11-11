@@ -10,8 +10,11 @@ namespace GammaLibrary.Extensions
         public static bool IsAttributeDefined<T>(this MemberInfo info) where T : Attribute =>
             info.CustomAttributes.Any(attribute => attribute.AttributeType == typeof(T));
 
-        public static T GetFirstAttribute<T>(this MethodInfo info, bool inherit = true) where T : Attribute => 
+        public static T? GetFirstAttribute<T>(this MethodInfo info, bool inherit = true) where T : Attribute => 
             info.GetCustomAttributes<T>(inherit).FirstOrDefault();
+
+        public static T GetSingleAttribute<T>(this MethodInfo info, bool inherit = true) where T : Attribute =>
+            info.GetCustomAttributes<T>(inherit).Single();
 
         public static bool IsAssignableFrom<T>(this Type type) => type.IsAssignableFrom(typeof(T));
         public static bool IsAssignableTo<T>(this Type type) => typeof(T).IsAssignableFrom(type);

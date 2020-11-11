@@ -7,7 +7,7 @@ namespace GammaLibrary.Enhancements
 {
     public static class TextBuilder
     {
-        public static ThreadLocal<StringBuilder> sbs;
+        //public static ThreadLocal<StringBuilder> sbs;
 
         public static void Line(string content = "")
         {

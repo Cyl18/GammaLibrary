@@ -9,13 +9,13 @@ namespace GammaLibrary.Enhancements
 {
     public static class Consoles
     {
-        public static string ReadLine(string str)
+        public static string? ReadLine(string str)
         {
             Console.WriteLine(str);
             return Console.ReadLine();
         }
 
-        public static string Read(string str)
+        public static string? Read(string str)
         {
             Console.Write(str);
             return Console.ReadLine();

@@ -27,7 +27,7 @@ namespace GammaLibrary
         public static Resource FromManifestResource(string path, ResourceReadMode mode = ResourceReadMode.String) =>
             mode == ResourceReadMode.String
                 ? new Resource(ResourceReader.Read(Assembly.GetCallingAssembly(), path) ?? throw new FileNotFoundException($"{path} is not found"))
-                : new Resource(ResourceReader.GetStream(Assembly.GetCallingAssembly(), path));
+                : new Resource(ResourceReader.GetStream(Assembly.GetCallingAssembly(), path) ?? throw new InvalidOperationException($"{path} stream is null"));
 
         public static Resource FromString(string str) => new Resource(str);
 

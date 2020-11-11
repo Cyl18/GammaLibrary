@@ -136,7 +136,7 @@ namespace GammaLibrary.Extensions
         public static bool NotNullNorEmpty(this string str) => !string.IsNullOrEmpty(str);
         public static bool NotNullNorWhiteSpace(this string str) => !string.IsNullOrWhiteSpace(str);
 
-        public static string GetString(this SecureString value)
+        public static string? GetString(this SecureString value)
         {
             var valuePtr = IntPtr.Zero;
             try

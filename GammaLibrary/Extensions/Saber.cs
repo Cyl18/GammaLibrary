@@ -10,7 +10,7 @@ namespace GammaLibrary.Extensions
             if (obj == null) return "null";
             var originalToString = obj.ToString();
             
-            return originalToString != obj.GetType().ToString() || obj is Type ? originalToString : obj.ToJsonString();
+            return (originalToString != obj.GetType().ToString() || obj is Type ? originalToString : obj.ToJsonString()) ?? "null";
         }
     }
 }

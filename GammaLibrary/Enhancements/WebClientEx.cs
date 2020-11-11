@@ -31,6 +31,7 @@ namespace GammaLibrary.Enhancements
             CookieContainer = container;
         }
 
+        //TODO english
         /// <summary>
         /// 下载一个文件.
         /// </summary>
@@ -39,7 +40,7 @@ namespace GammaLibrary.Enhancements
         public new void DownloadFile(string address, string fileName)
         {
             fileName = Path.GetFullPath(fileName);
-            Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            Directory.CreateDirectory(Path.GetDirectoryName(fileName)!);
             base.DownloadFile(address, fileName);
         }
 
@@ -51,21 +52,21 @@ namespace GammaLibrary.Enhancements
         public new void DownloadFile(Uri address, string fileName)
         {
             fileName = Path.GetFullPath(fileName);
-            Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            Directory.CreateDirectory(Path.GetDirectoryName(fileName)!);
             base.DownloadFile(address, fileName);
         }
 
         public new void DownloadFileAsync(Uri address, string fileName)
         {
             fileName = Path.GetFullPath(fileName);
-            Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            Directory.CreateDirectory(Path.GetDirectoryName(fileName)!);
             base.DownloadFileAsync(address, fileName);
         }
 
         public new void DownloadFileAsync(Uri address, string fileName, object userToken)
         {
             fileName = Path.GetFullPath(fileName);
-            Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            Directory.CreateDirectory(Path.GetDirectoryName(fileName)!);
             base.DownloadFileAsync(address, fileName, userToken);
         }
 
@@ -77,7 +78,7 @@ namespace GammaLibrary.Enhancements
         public new Task DownloadFileTaskAsync(string address, string fileName)
         {
             fileName = Path.GetFullPath(fileName);
-            Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            Directory.CreateDirectory(Path.GetDirectoryName(fileName)!);
             return base.DownloadFileTaskAsync(address, fileName);
         }
 
@@ -89,7 +90,7 @@ namespace GammaLibrary.Enhancements
         public new Task DownloadFileTaskAsync(Uri address, string fileName)
         {
             fileName = Path.GetFullPath(fileName);
-            Directory.CreateDirectory(Path.GetDirectoryName(fileName));
+            Directory.CreateDirectory(Path.GetDirectoryName(fileName)!);
             return base.DownloadFileTaskAsync(address, fileName);
         }
 

@@ -12,6 +12,7 @@ using System.ComponentModel;
 using System.Threading;
 using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
+#pragma warning disable
 
 // ReSharper disable once CheckNamespace
 namespace System.Collections.Concurrent

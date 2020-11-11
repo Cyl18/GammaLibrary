@@ -48,7 +48,7 @@ namespace GammaLibrary.Extensions
         /// </summary>
         public static T PickOne<T>(this IList<T> collection)
         {
-            return collection[Rng.Value.Next(collection.Count)];
+            return collection[Rng.Value!.Next(collection.Count)];
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace GammaLibrary.Extensions
         /// </summary>
         public static T PickOne<T>(this T[] collection)
         {
-            return collection[Rng.Value.Next(collection.Length)];
+            return collection[Rng.Value!.Next(collection.Length)];
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace GammaLibrary.Extensions
         public static T PickOne<T>(this IEnumerable<T> enumerable)
         {
             var collection = enumerable.ToArray();
-            return collection[Rng.Value.Next(collection.Length)];
+            return collection[Rng.Value!.Next(collection.Length)];
         }
 
         /// <summary>
@@ -99,6 +99,7 @@ namespace GammaLibrary.Extensions
             return collection[rng.Next(collection.Length)];
         }
 
+        // todo find a better algorithm
         /// <summary>
         /// Shuffles a <paramref name="list"/>.
         /// </summary>
@@ -108,7 +109,7 @@ namespace GammaLibrary.Extensions
             while (n > 1)
             {
                 n--;
-                var k = Rng.Value.Next(n + 1);
+                var k = Rng.Value!.Next(n + 1);
                 var value = list[k];
                 list[k] = list[n];
                 list[n] = value;
@@ -202,21 +203,21 @@ namespace GammaLibrary.Extensions
         //     return flag;
         // }
 
-        public static (bool success, TValue value) SafelyGet<TValue>(this IList<TValue> list, int index)
+        public static (bool success, TValue? value) SafelyGet<TValue>(this IList<TValue> list, int index)
         {
             var flag = list.Count <= index;
             var value = flag ? list[index] : default;
             return (flag, value);
-        }
+        }   
 
-        public static bool TryGet<TValue>(this TValue[] list, int index, out TValue value)
+        public static bool TryGet<TValue>(this TValue[] list, int index, out TValue? value)
         {
             var flag = list.Length <= index;
             value = flag ? list[index] : default;
             return flag;
         }
 
-        public static (bool success, TValue value) SafelyGet<TValue>(this TValue[] list, int index)
+        public static (bool success, TValue? value) SafelyGet<TValue>(this TValue[] list, int index)
         {
             var flag = list.Length <= index;
             var value = flag ? list[index] : default;

@@ -32,8 +32,8 @@ namespace GammaLibrary
 
         public static ValueTask<string?> ReadAsync(string name) => ReadAsync(Assembly.GetCallingAssembly(), name);
 
-        public static Stream GetStream(Assembly assembly, string name) => assembly.GetManifestResourceStream(name);
+        public static Stream? GetStream(Assembly assembly, string name) => assembly.GetManifestResourceStream(name);
 
-        public static Stream GetStream(string name) => GetStream(Assembly.GetCallingAssembly(), name);
+        public static Stream? GetStream(string name) => GetStream(Assembly.GetCallingAssembly(), name);
     }
 }

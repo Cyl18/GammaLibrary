@@ -5,7 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using GammaLibrary.Extensions;
-
+#pragma warning disable
 namespace GammaLibrary
 {
     // TODO 写法有问题 要分两个类.

@@ -19,7 +19,7 @@ namespace GammaLibrary.Extensions
             if (source != null) func(source);
         }
 
-        public static T2 DoIfNotNull<T1, T2>(this T1 source, Func<T1, T2> func)
+        public static T2? DoIfNotNull<T1, T2>(this T1 source, Func<T1, T2?> func)
         {
             if (func is null) throw new ArgumentNullException(nameof(func));
 
@@ -33,7 +33,7 @@ namespace GammaLibrary.Extensions
             if (source == null) func(source);
         }
 
-        public static T2 DoIfNull<T1, T2>(this T1 source, Func<T1, T2> func)
+        public static T2? DoIfNull<T1, T2>(this T1 source, Func<T1, T2?> func)
         {
             if (func is null) throw new ArgumentNullException(nameof(func));
 

@@ -18,7 +18,8 @@ namespace GammaLibrary.Extensions
         {
             if (destination is null) throw new ArgumentNullException(nameof(destination));
 
-            Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(destination)));
+            Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(destination)) ??
+                                      throw new InvalidOperationException($"Invalid destination: {destination}"));
             using var fs = File.OpenWrite(destination);
             await client.DownloadAsync(requestUri, fs, progress, cancellationToken);
         }
@@ -74,9 +75,13 @@ namespace GammaLibrary.Extensions
             return await response.Content.ReadAsStringAsync();
         }
 
-        public static Task<string> PostStringAsync(this HttpClient client, string address, Dictionary<string, string> data)
+        // TODO 这里 .NET 5 加了新的 API 考虑删除
+        public static Task<string> PostStringAsync(this HttpClient client, string address, Dictionary<string, string?> data)
         {
+            // 这里上面加了问号要warning 删了问号也要warning...
+#pragma warning disable CS8620
             return client.PostStringAsync(address, new FormUrlEncodedContent(data));
+#pragma warning restore CS8620
         }
 
         public static async Task<T> GetJsonAsync<T>(this HttpClient client, string address)
@@ -93,9 +98,11 @@ namespace GammaLibrary.Extensions
             return str.JsonDeserialize<T>();
         }
 
-        public static Task<T> PostJsonAsync<T>(this HttpClient client, string address, Dictionary<string, string> data)
+        public static Task<T> PostJsonAsync<T>(this HttpClient client, string address, Dictionary<string, string?> data)
         {
+#pragma warning disable CS8620
             return client.PostJsonAsync<T>(address, new FormUrlEncodedContent(data));
+#pragma warning restore CS8620
         }
     }
 

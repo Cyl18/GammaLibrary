@@ -54,7 +54,7 @@ namespace GammaLibrary
         protected virtual void OnUpdated() { }
         protected virtual void OnSaved() { }
 
-        public static string SavePath => typeof(T).GetCustomAttribute<ConfigurationPathAttribute>().SaveName;
+        public static string SavePath => typeof(T).GetCustomAttribute<ConfigurationPathAttribute>()!.SaveName;
     }
 
     [AttributeUsage(AttributeTargets.Class, Inherited = false)]

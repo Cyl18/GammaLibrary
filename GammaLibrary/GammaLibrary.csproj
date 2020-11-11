@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netstandard2.1</TargetFramework>
+    <TargetFramework>net5.0</TargetFramework>
     <Authors>Cyl18</Authors>
     <Company>Cyl18</Company>
     <Description>Just my coding library.</Description>
@@ -13,7 +13,8 @@
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
     <Version>1.2.1-pre</Version>
-    <LangVersion>8</LangVersion>
+    <EnableNETAnalyzers>true</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
     <Nullable>enable</Nullable>
     <AssemblyVersion>1.2.0.0</AssemblyVersion>
     <FileVersion>1.2.0.0</FileVersion>
@@ -22,14 +23,6 @@
 
   <ItemGroup>
     <PackageReference Include="ConfigureAwait.Fody" Version="3.3.1" PrivateAssets="All" />
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.8">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-    <PackageReference Include="Microsoft.DotNet.Analyzers.Compatibility" Version="0.2.12-alpha">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
     <PackageReference Include="System.Threading.Tasks.Extensions" Version="4.5.3" />
   </ItemGroup>

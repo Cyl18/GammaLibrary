@@ -9,8 +9,9 @@ namespace GammaLibrary.Extensions
 {
     public static class JsonExtensions
     {
-        private static readonly SerializeSettings SerializeSettings = new SerializeSettings();
+        private static readonly SerializeSettings SerializeSettings = new ();
         public static bool UseLongRunning { get; set; }
+        
         public static string ToJsonString<T>(this T source, JsonSerializerSettings? settings = null)
         {
             var realSettings = settings ?? SerializeSettings;
@@ -25,19 +26,18 @@ namespace GammaLibrary.Extensions
                 TaskScheduler.Default);
             // todo use HideScheduler when it can
         }
-
-        public static T JsonDeserialize<T>(this string source, JsonSerializerSettings? settings = null)
+        
+        public static T? JsonDeserialize<T>(this string source, JsonSerializerSettings? settings = null)
         {
             var realSettings = settings ?? SerializeSettings;
-            return JsonConvert.DeserializeObject<T>(source, realSettings)!; // todo Wait for C# 9 and remove this '!'
+            return JsonConvert.DeserializeObject<T>(source, realSettings);
         }
 
         public static Task<T> JsonDeserializeAsync<T>(this string source, JsonSerializerSettings? settings = null)
         {
             var realSettings = settings ?? SerializeSettings;
             return Task.Factory.StartNew(() => JsonConvert.DeserializeObject<T>(source, realSettings)!,
-                new CancellationToken(), UseLongRunning ? TaskCreationOptions.LongRunning : TaskCreationOptions.None,
-                TaskScheduler.Default)!;
+                 (UseLongRunning ? TaskCreationOptions.LongRunning : TaskCreationOptions.None) | TaskCreationOptions.HideScheduler)!;
             // todo use HideScheduler when it can
         }
     }
