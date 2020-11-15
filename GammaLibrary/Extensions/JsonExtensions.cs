@@ -21,24 +21,21 @@ namespace GammaLibrary.Extensions
         public static Task<string> ToJsonStringAsync<T>(this T source, JsonSerializerSettings? settings = null)
         {
             var realSettings = settings ?? SerializeSettings;
-            return Task.Factory.StartNew(() => JsonConvert.SerializeObject(source, realSettings),
-                new CancellationToken(), UseLongRunning ? TaskCreationOptions.LongRunning : TaskCreationOptions.None,
-                TaskScheduler.Default);
-            // todo use HideScheduler when it can
+            return Task.Factory.StartNew(() => source.ToJsonString(realSettings),
+                (UseLongRunning ? TaskCreationOptions.LongRunning : TaskCreationOptions.None) | TaskCreationOptions.HideScheduler);
         }
         
-        public static T? JsonDeserialize<T>(this string source, JsonSerializerSettings? settings = null)
+        public static T JsonDeserialize<T>(this string source, JsonSerializerSettings? settings = null)
         {
             var realSettings = settings ?? SerializeSettings;
-            return JsonConvert.DeserializeObject<T>(source, realSettings);
+            return JsonConvert.DeserializeObject<T>(source, realSettings) ?? throw new Exception("Json deserialize returned null.");
         }
 
         public static Task<T> JsonDeserializeAsync<T>(this string source, JsonSerializerSettings? settings = null)
         {
             var realSettings = settings ?? SerializeSettings;
-            return Task.Factory.StartNew(() => JsonConvert.DeserializeObject<T>(source, realSettings)!,
-                 (UseLongRunning ? TaskCreationOptions.LongRunning : TaskCreationOptions.None) | TaskCreationOptions.HideScheduler)!;
-            // todo use HideScheduler when it can
+            return Task.Factory.StartNew(() => source.JsonDeserialize<T>(realSettings),
+                 (UseLongRunning ? TaskCreationOptions.LongRunning : TaskCreationOptions.None) | TaskCreationOptions.HideScheduler);
         }
     }
 

@@ -6,5 +6,6 @@ namespace GammaLibrary.Extensions
 {
     public static class MathExtensions
     {
+        //todo
     }
 }
