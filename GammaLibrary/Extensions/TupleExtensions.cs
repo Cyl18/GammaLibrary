@@ -11,6 +11,12 @@ namespace GammaLibrary.Extensions
             return condition ? (tuple.Item2, tuple.Item1) : tuple;
         }
 
+        public static bool TrueForAll<T>(this (T, T) tuple, Predicate<T> predicate)
+        {
+            return predicate(tuple.Item1) && predicate(tuple.Item2);
+        }
+
+        
 
     }
 }
