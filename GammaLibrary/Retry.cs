@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Threading;
-//#nullable disable
+
 namespace GammaLibrary
 {
     //TODO retry with async
@@ -46,4 +46,3 @@ namespace GammaLibrary
         }
     }
 }
-#nullable enable
