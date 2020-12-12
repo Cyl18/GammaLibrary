@@ -72,8 +72,5 @@ namespace GammaLibrary
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     public sealed class ConfigurationAttribute : Attribute
     {
-        public ConfigurationAttribute(string saveName)
-        {
-        }
     }
 }

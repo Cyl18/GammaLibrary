@@ -14,6 +14,7 @@ namespace GammaLibrary.Extensions
         private static readonly SerializeSettings SerializeSettings = new();
         public static bool UseLongRunning { get; set; }
         
+        // port to System.Text.Json
         public static string ToJsonString<T>(this T source, JsonSerializerSettings? settings = null)
         {
             var realSettings = settings ?? SerializeSettings;
