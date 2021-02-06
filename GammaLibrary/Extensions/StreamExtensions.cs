@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -8,7 +9,6 @@ namespace GammaLibrary.Extensions
 {
     public static class StreamExtensions
     {
-        // TODO optional dispose
         public static string ReadToEnd(this Stream stream)
         {
             var reader = stream.CreateStreamReader();
@@ -21,14 +21,14 @@ namespace GammaLibrary.Extensions
             return reader.ReadToEndAsync();
         }
 
-        public static StreamReader CreateStreamReader(this Stream stream)
+        public static StreamReader CreateStreamReader(this Stream stream, Encoding? encoding = null, bool detectEncodingFromByteOrderMarks = true, int bufferSize = -1, bool leaveOpen = false)
         {
-            return new StreamReader(stream);
+            return new(stream, encoding, detectEncodingFromByteOrderMarks, bufferSize, leaveOpen);
         }
 
-        public static StreamWriter CreateStreamWriter(this Stream stream)
+        public static StreamWriter CreateStreamWriter(this Stream stream, Encoding? encoding = null, int bufferSize = -1, bool leaveOpen = false)
         {
-            return new StreamWriter(stream);
+            return new(stream, encoding, bufferSize, leaveOpen);
         }
 
         public static void CopyToFile(this Stream stream, string path)

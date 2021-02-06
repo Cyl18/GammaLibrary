@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Diagnostics.Contracts;
 using System.Linq;
+using System.Numerics;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
 
@@ -9,23 +12,20 @@ namespace GammaLibrary.Extensions
 {
     public static class EnumerableExtensions
     {
-        private static readonly ThreadLocal<Random> Rng = new ThreadLocal<Random>();
+        static readonly ThreadLocal<Random> Rng = new(() => new Random());
 
-        public static void ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
-        {
-            foreach (var item in enumerable)
-            {
-                action(item);
-            }
-        }
-
-        public static IEnumerable<T> DoForAll<T>(this IEnumerable<T> enumerable, Action<T> action)
+        public static IEnumerable<T> ForEach<T>(this IEnumerable<T> enumerable, Action<T> action)
         {
             foreach (var item in enumerable)
             {
                 action(item);
                 yield return item;
             }
+        }
+
+        public static bool IsIn<T>(this T obj, IEnumerable<T> array)
+        {
+            return array.Contains(obj);
         }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace GammaLibrary.Extensions
         /// <see langword="true"/> if <paramref name="item"/> is not found in the <see cref="List{T}"/>;
         /// otherwise, <see langword="false"/>
         /// </returns>
-        public static bool NotContains<T>(this List<T> list, T item) => !list.Contains(item);
+        public static bool NotContains<T>(this IList<T> list, T item) => !list.Contains(item);
 
 
         public static bool NotContains<T>(this IEnumerable<T> list, T obj, IEqualityComparer<T> eq) => !list.Contains(obj, eq);
@@ -181,13 +181,23 @@ namespace GammaLibrary.Extensions
             return new List<T> { item1, item2, item3 };
         }
 
-        //todo rewrite this
-        // public static bool TryGet<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key, out TValue value)
-        // {
-        //     var flag = dictionary.ContainsKey(key);
-        //     value = flag ? dictionary[key] : default;
-        //     return flag;
-        // }
+        public static T[] AsArray<T>(this (T, T, T, T) obj)
+        {
+            var (item1, item2, item3, item4) = obj;
+            return new[] { item1, item2, item3, item4 };
+        }
+
+        public static List<T> AsList<T>(this (T, T, T, T) obj)
+        {
+            var (item1, item2, item3, item4) = obj;
+            return new List<T> { item1, item2, item3, item4 };
+        }
+        
+        public static TValue? GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
+        {
+            dictionary.TryGetValue(key, out var value);
+            return value;
+        }
 
         public static TValue GetOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> directory, TKey key, Func<TValue>? creator = null) where TValue : new()
         {
@@ -196,32 +206,30 @@ namespace GammaLibrary.Extensions
         }
 
 
-        // public static bool TryGet<TValue>(this IList<TValue> list, int index, out TValue value)
-        // {
-        //     var flag = list.Count <= index;
-        //     value = flag ? list[index] : default;
-        //     return flag;
-        // }
-
-        public static (bool success, TValue? value) SafelyGet<TValue>(this IList<TValue> list, int index)
+        public static bool TryGet<TValue>(this IList<TValue> list, int index, [MaybeNullWhen(false)] out TValue? value)
         {
             var flag = list.Count <= index;
-            var value = flag ? list[index] : default;
-            return (flag, value);
-        }   
+            value = flag ? list[index] : default;
+            return flag;
+        }
 
-        public static bool TryGet<TValue>(this TValue[] list, int index, out TValue? value)
+        public static bool TryGet<TValue>(this TValue[] list, int index, [MaybeNullWhen(false)] out TValue? value)
         {
             var flag = list.Length <= index;
             value = flag ? list[index] : default;
             return flag;
         }
 
-        public static (bool success, TValue? value) SafelyGet<TValue>(this TValue[] list, int index)
+        public static TValue? GetOrDefault<TValue>(this IList<TValue> list, int index)
         {
-            var flag = list.Length <= index;
-            var value = flag ? list[index] : default;
-            return (flag, value);
+            list.TryGet(index, out var value);
+            return value;
+        }
+
+        public static TValue? GetOrDefault<TValue>(this TValue[] list, int index)
+        {
+            list.TryGet(index, out var value);
+            return value;
         }
 
         public static bool IsEmpty<T>(this IEnumerable<T> enumerable) => !enumerable.Any();

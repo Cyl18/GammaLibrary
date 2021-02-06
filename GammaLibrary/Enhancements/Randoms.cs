@@ -6,19 +6,18 @@ using System.Threading;
 namespace GammaLibrary.Enhancements
 {
     // todo 今天不是很想写
-    public class Randoms
+    public static class Randoms
     {
-        private ThreadLocal<Random> random = new ThreadLocal<Random>();
+        private static ThreadLocal<Random> random = new ThreadLocal<Random>();
 
 
 
-        public int GetIntegerFromRange(Range range)
+        public static int GetIntegerFromRange(Range range)
         {
-            
             throw new NotImplementedException();
         }
 
-        public double GetDoubleFromRange(Range range)
+        public static double GetDoubleFromRange(Range range)
         {
             throw new NotImplementedException();
         }

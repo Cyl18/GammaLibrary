@@ -1,0 +1,132 @@
+﻿        /// <summary>
+        /// Detects if a string can be converted to <see cref="$typename"/>.
+        /// </summary>
+        /// <param name="str">A string contains number.</param>
+        /// <param name="styles">Number styles.</param>
+        /// <param name="provider">The format provider.</param>
+        /// <returns><see langword="true"/> if <paramref name="str"/> can be converted to <see cref="$typename"/>; otherwise, <see langword="false"/></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Is$typestring(this string str, NumberStyles styles = $styles, IFormatProvider? provider = null)
+        {
+            return $typename.TryParse(str, styles, provider, out _);
+        }
+
+        /// <summary>
+        /// Try converting a string to <see cref="$typename"/>.
+        /// </summary>
+        /// <param name="str">A string contains number.</param>
+        /// <param name="num">The output number</param>
+        /// <param name="styles">Number styles.</param>
+        /// <param name="provider">The format provider.</param>
+        /// <returns><see langword="true"/> if <paramref name="str"/> can be converted to <see cref="$typename"/>; otherwise, <see langword="false"/></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryConvertTo$typestring(this string str, out $typename num, NumberStyles styles = $styles, IFormatProvider? provider = null)
+        {
+            return $typename.TryParse(str, styles, provider, out num);
+        }
+
+        /// <summary>
+        /// Converts a string to <see cref="$typename"/>.
+        /// </summary>
+        /// <param name="str">A string contains number.</param>
+        /// <param name="styles">Number styles.</param>
+        /// <param name="provider">The format provider.</param>
+        /// <returns>The output number.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static $typename To$typestring(this string str, NumberStyles styles = $styles, IFormatProvider? provider = null)
+        {
+            return $typename.Parse(str, styles, provider);
+        }
+
+        /// <summary>
+        /// Converts a string to <see cref="$typename"/>. If it cannot be converted, returns zero.
+        /// </summary>
+        /// <param name="str">A string contains number.</param>
+        /// <param name="styles">Number styles.</param>
+        /// <param name="provider">The format provider.</param>
+        /// <returns>The output number. If it cannot be converted, returns zero.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static $typename To$typestringOrZero(this string str, NumberStyles styles = $styles, IFormatProvider? provider = null)
+        {
+            return $typename.TryParse(str, styles, provider, out var result) ? result : ($typename) 0;
+        }
+
+        /// <summary>
+        /// Converts a string to <see cref="$typename"/>. If it cannot be converted, returns <see langword="null"/>.
+        /// </summary>
+        /// <param name="str">A string contains number.</param>
+        /// <param name="styles">Number styles.</param>
+        /// <param name="provider">The format provider.</param>
+        /// <returns>The output number. If it cannot be converted, returns <see langword="null"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static $typename? To$typestringOrNull(this string str, NumberStyles styles = $styles, IFormatProvider? provider = null)
+        {
+            return $typename.TryParse(str, styles, provider, out var result) ? result : ($typename?) null;
+        }
+
+
+        /// <summary>
+        /// Detects if a string can be converted to <see cref="$typename"/>.
+        /// </summary>
+        /// <param name="str">A string contains number.</param>
+        /// <param name="styles">Number styles.</param>
+        /// <param name="provider">The format provider.</param>
+        /// <returns><see langword="true"/> if <paramref name="str"/> can be converted to <see cref="$typename"/>; otherwise, <see langword="false"/></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool Is$typestring(this ReadOnlySpan<char> str, NumberStyles styles = $styles, IFormatProvider? provider = null)
+        {
+            return $typename.TryParse(str, styles, provider, out _);
+        }
+
+        /// <summary>
+        /// Try converting a string to <see cref="$typename"/>.
+        /// </summary>
+        /// <param name="str">A string contains number.</param>
+        /// <param name="num">The output number</param>
+        /// <param name="styles">Number styles.</param>
+        /// <param name="provider">The format provider.</param>
+        /// <returns><see langword="true"/> if <paramref name="str"/> can be converted to <see cref="$typename"/>; otherwise, <see langword="false"/></returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static bool TryConvertTo$typestring(this ReadOnlySpan<char> str, out $typename num, NumberStyles styles = $styles, IFormatProvider? provider = null)
+        {
+            return $typename.TryParse(str, styles, provider, out num);
+        }
+
+        /// <summary>
+        /// Converts a string to <see cref="$typename"/>.
+        /// </summary>
+        /// <param name="str">A string contains number.</param>
+        /// <param name="styles">Number styles.</param>
+        /// <param name="provider">The format provider.</param>
+        /// <returns>The output number.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static $typename To$typestring(this ReadOnlySpan<char> str, NumberStyles styles = $styles, IFormatProvider? provider = null)
+        {
+            return $typename.Parse(str, styles, provider);
+        }
+
+        /// <summary>
+        /// Converts a string to <see cref="$typename"/>. If it cannot be converted, returns zero.
+        /// </summary>
+        /// <param name="str">A string contains number.</param>
+        /// <param name="styles">Number styles.</param>
+        /// <param name="provider">The format provider.</param>
+        /// <returns>The output number. If it cannot be converted, returns zero.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static $typename To$typestringOrZero(this ReadOnlySpan<char> str, NumberStyles styles = $styles, IFormatProvider? provider = null)
+        {
+            return $typename.TryParse(str, styles, provider, out var result) ? result : ($typename)0;
+        }
+
+        /// <summary>
+        /// Converts a string to <see cref="$typename"/>. If it cannot be converted, returns <see langword="null"/>.
+        /// </summary>
+        /// <param name="str">A string contains number.</param>
+        /// <param name="styles">Number styles.</param>
+        /// <param name="provider">The format provider.</param>
+        /// <returns>The output number. If it cannot be converted, returns <see langword="null"/>.</returns>
+        [MethodImpl(MethodImplOptions.AggressiveInlining)]
+        public static $typename? To$typestringOrNull(this ReadOnlySpan<char> str, NumberStyles styles = $styles, IFormatProvider? provider = null)
+        {
+            return $typename.TryParse(str, styles, provider, out var result) ? result : ($typename?)null;
+        }

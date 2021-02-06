@@ -16,7 +16,7 @@ namespace GammaLibrary.Extensions
         /// <param name="input"></param>
         /// <returns></returns>
         /// <remarks>
-        /// Warning: MD5 is <c>UNSAFE</c>
+        /// Warning: MD5 is <c>INSECURE</c>
         /// </remarks>
         public static byte[] MD5(this string input) => input.ToUTF8Bytes().MD5();
 
@@ -25,9 +25,8 @@ namespace GammaLibrary.Extensions
         /// <param name="input"></param>
         /// <returns></returns>
         /// <remarks>
-        /// Warning: MD5 is <c>UNSAFE</c>
+        /// Warning: MD5 is <c>INSECURE</c>
         /// </remarks>
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Security", "CA5351:Do Not Use Broken Cryptographic Algorithms", Justification = "<Pending>")]
         public static byte[] MD5(this byte[] input) => _md5.Value!.ComputeHash(input);
         
         private static readonly ThreadLocal<SHA256> _sha256 = new(System.Security.Cryptography.SHA256.Create);
@@ -43,6 +42,5 @@ namespace GammaLibrary.Extensions
         private static readonly ThreadLocal<SHA512> _sha512 = new(System.Security.Cryptography.SHA512.Create);
         public static byte[] SHA512(this string input) => input.ToUTF8Bytes().SHA512();
         public static byte[] SHA512(this byte[] input) => _sha512.Value!.ComputeHash(input);
-
     }
 }

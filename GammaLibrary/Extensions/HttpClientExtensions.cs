@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace GammaLibrary.Extensions
 {
+    // todo static httpclient
     public static class HttpClientExtensions
     {
 

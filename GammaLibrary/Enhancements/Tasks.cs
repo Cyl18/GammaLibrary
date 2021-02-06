@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 
 namespace GammaLibrary.Enhancements
 {
+    // todo Better timer
     public static class Tasks
     {
         public static Task DelayAndExecuteAsync(int ms, Action action) => Task.Delay(ms).ContinueWith(t => action);
@@ -20,21 +21,18 @@ namespace GammaLibrary.Enhancements
 
         public static async Task DelayAndExecute<T>(TimeSpan timeSpan, Action action)
         {
-            if (action is null) throw new ArgumentNullException(nameof(action));
             await Task.Delay(timeSpan);
             action();
         }
 
         public static async Task<T> DelayAndExecute<T>(int ms, Func<T> action)
         {
-            if (action is null) throw new ArgumentNullException(nameof(action));
             await Task.Delay(ms);
             return action();
         }
 
         public static async Task<T> DelayAndExecute<T>(TimeSpan timeSpan, Func<T> action)
         {
-            if (action is null) throw new ArgumentNullException(nameof(action));
             await Task.Delay(timeSpan);
             return action();
         }
