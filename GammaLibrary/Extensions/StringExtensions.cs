@@ -14,6 +14,7 @@ namespace GammaLibrary.Extensions
     [System.Diagnostics.CodeAnalysis.SuppressMessage("Globalization", "CA1305:Specify IFormatProvider", Justification = "<Pending>")]
     public static partial class StringExtensions
     {
+        [MethodImpl(MethodImplOptions.AggressiveInlining)] public static string OrEmpty(this string? s) => s ?? string.Empty;
         [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte[] ToBytes(this string str, Encoding encoding) => encoding.GetBytes(str);
         [MethodImpl(MethodImplOptions.AggressiveInlining)] public static string ConvertToString(this byte[] bytes, Encoding encoding) => encoding.GetString(bytes);
         [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte[] ToUTF8Bytes(this string str) => str.ToBytes(Encoding.UTF8);

@@ -14,7 +14,6 @@ namespace GammaLibrary.Extensions
     {
         static readonly JsonSerializerOptions DefaultSerializerOptions = new()
         {
-            ReadCommentHandling = JsonCommentHandling.Allow,
             IncludeFields = true,
             WriteIndented = true
         };

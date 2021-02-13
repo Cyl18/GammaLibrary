@@ -9,7 +9,6 @@ namespace GammaLibrary.Common
 {
     public sealed class Container<T>
     {
-        [NotNull]
         public T Value { get; set; }
 
         public Container(T value)

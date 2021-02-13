@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -22,18 +23,21 @@ namespace GammaLibrary
             return stream == null ? null : new StreamReader(stream).ReadToEnd();
         }
         
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static string? Read(string name) => Read(Assembly.GetCallingAssembly(), name);
 
-        public static async ValueTask<string?> ReadAsync(Assembly assembly, string name)
+        public static async Task<string?> ReadAsync(Assembly assembly, string name)
         {
             using var stream = GetStream(assembly, name);
             return stream == null ? null : await new StreamReader(stream).ReadToEndAsync();
         }
+        [MethodImpl(MethodImplOptions.NoInlining)]
 
-        public static ValueTask<string?> ReadAsync(string name) => ReadAsync(Assembly.GetCallingAssembly(), name);
+        public static Task<string?> ReadAsync(string name) => ReadAsync(Assembly.GetCallingAssembly(), name);
 
         public static Stream? GetStream(Assembly assembly, string name) => assembly.GetManifestResourceStream(name);
 
+        [MethodImpl(MethodImplOptions.NoInlining)]
         public static Stream? GetStream(string name) => GetStream(Assembly.GetCallingAssembly(), name);
     }
 }

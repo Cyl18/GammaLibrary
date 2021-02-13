@@ -68,7 +68,7 @@ namespace GammaLibrary
         }
     }
 
-    [Obsolete("This is attribute is obsolete, please use ConfigurationPathAttribute instead. And you should add '.json' to the end.")]
+    [Obsolete("This attribute is obsolete, please use ConfigurationPathAttribute instead. And you should add '.json' to the end.")]
     [AttributeUsage(AttributeTargets.Class, Inherited = false, AllowMultiple = false)]
     public sealed class ConfigurationAttribute : Attribute
     {
