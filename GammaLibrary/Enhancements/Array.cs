@@ -7,8 +7,7 @@ namespace GammaLibrary.Enhancements
 {
     public static class Arrays<T>
     {
-        [SuppressMessage("Performance", "CA1819:Properties should not return arrays", Justification = "<Pending>")]
-        public static T[] Empty => Array.Empty<T>();
+        public static T[] Empty = Array.Empty<T>();
         public static List<T> EmptyList => new();
     }
 }

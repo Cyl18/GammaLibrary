@@ -10,6 +10,7 @@ using GammaLibrary.Extensions;
 
 namespace GammaLibrary.Enhancements
 {
+    [Obsolete("This class is going to be deleted.")]
     public class WebClientEx : WebClient
     {
         public CookieContainer CookieContainer { get; set; } = new CookieContainer();
