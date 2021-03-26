@@ -19,6 +19,11 @@ namespace GammaLibrary.Extensions
             return predicate(tuple.Item1) && predicate(tuple.Item2);
         }
 
+        public static bool TrueForAll<T>(this (T, T, T) tuple, Predicate<T> predicate)
+        {
+            return predicate(tuple.Item1) && predicate(tuple.Item2) && predicate(tuple.Item3);
+        }
+
         public static T[] ToArray<T>(this ITuple tuple)
         {
             var array = new T[tuple.Length];

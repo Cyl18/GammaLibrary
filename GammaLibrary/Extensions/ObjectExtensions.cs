@@ -24,5 +24,16 @@ namespace GammaLibrary.Extensions
 
         [return: NotNullIfNotNull("obj")]
         public static object? ToObject<T>(this T obj) => obj;
+
+        public static T Run<T>(this T obj, Action<T> action)
+        {
+            action(obj);
+            return obj;
+        }
+
+        public static TResult Run<TObject, TResult>(this TObject obj, Func<TObject, TResult> action)
+        {
+            return action(obj);
+        }
     }
 }

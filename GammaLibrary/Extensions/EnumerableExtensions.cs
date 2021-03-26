@@ -100,6 +100,7 @@ namespace GammaLibrary.Extensions
         }
 
         // todo find a better algorithm
+        // todo !这里排序算法有问题
         /// <summary>
         /// Shuffles a <paramref name="list"/>.
         /// </summary>
@@ -135,6 +136,7 @@ namespace GammaLibrary.Extensions
             }
         }
 
+#pragma warning disable CA1002 // Do not expose generic lists
         public static List<T> CloneAndSort<T>(this IEnumerable<T> list)
         {
             var result = new List<T>(list);
@@ -206,14 +208,14 @@ namespace GammaLibrary.Extensions
         }
 
 
-        public static bool TryGet<TValue>(this IList<TValue> list, int index, [MaybeNullWhen(false)] out TValue? value)
+        public static bool TryGet<TValue>(this IList<TValue> list, int index, out TValue? value)
         {
             var flag = list.Count <= index;
             value = flag ? list[index] : default;
             return flag;
         }
 
-        public static bool TryGet<TValue>(this TValue[] list, int index, [MaybeNullWhen(false)] out TValue? value)
+        public static bool TryGet<TValue>(this TValue[] list, int index, out TValue? value)
         {
             var flag = list.Length <= index;
             value = flag ? list[index] : default;
@@ -235,3 +237,4 @@ namespace GammaLibrary.Extensions
         public static bool IsEmpty<T>(this IEnumerable<T> enumerable) => !enumerable.Any();
     }
 }
+#pragma warning enable CA1002 // Do not expose generic lists

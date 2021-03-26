@@ -11,6 +11,9 @@ namespace GammaLibrary.Tests
     [TestClass]
     public class JsonTest
     {
+        readonly Lazy<string> _internalLazy = new Lazy<string>(() => "sb");
+        public string LazyObject => _internalLazy.Value;
+
         [TestMethod]
         public void TestJson()
         {

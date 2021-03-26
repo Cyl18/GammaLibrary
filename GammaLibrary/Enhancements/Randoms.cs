@@ -9,8 +9,10 @@ namespace GammaLibrary.Enhancements
     // todo 今天不是很想写
     public static class Randoms
     {
-        private static ThreadLocal<Random> _threadLocalRandom = new(() => new Random());
-        static Random Rng => _threadLocalRandom.Value!;
+        [ThreadStatic]
+        static Random? _threadLocalRandom;
+        static Random Rng => 
+            _threadLocalRandom ??= new Random();
 
         public static int NextInt() => Rng.Next();
         //public static uint NextUInt() => (uint)NextInt() + (uint)NextInt();
