@@ -57,6 +57,7 @@ namespace GammaLibrary.Extensions
             return array.ToImmutable();
         }
 
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Design", "CA1002:Do not expose generic lists", Justification = "<Pending>")]
         public static List<T> ToList<T>(this ITuple tuple)
         {
             var list = new List<T>(tuple.Length);

@@ -52,7 +52,7 @@ namespace GammaLibrary.Extensions
         {
             return new MemoryStream().CopyFrom(stream);
         }
-
+        // todo ? 不知道能不能用
         public static MemoryStream ToMemoryStreamAndDispose(this Stream stream)
         {
             var memoryStream = new MemoryStream().CopyFrom(stream);

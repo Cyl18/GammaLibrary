@@ -21,8 +21,8 @@ namespace GammaLibrary.Common
 
         public int CompareTo(ImmutableContainer<T>? other)
         {
-            if (Value is not IComparable<T>) throw new InvalidOperationException("T must be IComparable.");
-            return ((IComparable<T>) Value).CompareTo(other.Value);
+            if (Value is not IComparable<T> comparable) throw new InvalidOperationException("T must be IComparable.");
+            return comparable.CompareTo(other!.Value);
         }
 
         public int CompareTo(object? obj)

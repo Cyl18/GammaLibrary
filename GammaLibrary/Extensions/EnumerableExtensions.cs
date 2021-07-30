@@ -38,9 +38,13 @@ namespace GammaLibrary.Extensions
         /// otherwise, <see langword="false"/>
         /// </returns>
         public static bool NotContains<T>(this IList<T> list, T item) => !list.Contains(item);
+        // todo 移除这个方法因为 IEnumerable 已经包含
 
+        public static bool NotContains<T>(this ICollection<T> collection, T obj) => !collection.Contains(obj);
 
-        public static bool NotContains<T>(this IEnumerable<T> list, T obj, IEqualityComparer<T> eq) => !list.Contains(obj, eq);
+        public static bool NotContains<T>(this IEnumerable<T> list, T obj, IEqualityComparer<T> eq) =>
+            !list.Contains(obj, eq);
+
         public static bool NotContains<T>(this IEnumerable<T> enumerable, T obj) => !enumerable.Contains(obj);
 
         /// <summary>
@@ -144,64 +148,66 @@ namespace GammaLibrary.Extensions
             return result;
         }
 
-        public static string Connect<T>(this IEnumerable<T> enumerable, string separator = ", ", string prefix = "", string postfix = "")
+        public static string Connect<T>(this IEnumerable<T> enumerable, string separator = ", ", string prefix = "",
+            string postfix = "")
         {
             return $"{prefix}{string.Join(separator, enumerable)}{postfix}";
         }
 
         public static T[] AsArray<T>(this T obj)
         {
-            return new[] { obj };
+            return new[] {obj};
         }
 
         public static List<T> AsList<T>(this T obj)
         {
-            return new List<T> { obj };
+            return new List<T> {obj};
         }
 
         public static T[] AsArray<T>(this (T, T) obj)
         {
             var (item1, item2) = obj;
-            return new [] { item1, item2 };
+            return new[] {item1, item2};
         }
 
         public static List<T> AsList<T>(this (T, T) obj)
         {
             var (item1, item2) = obj;
-            return new List<T> { item1, item2 };
+            return new List<T> {item1, item2};
         }
 
         public static T[] AsArray<T>(this (T, T, T) obj)
         {
             var (item1, item2, item3) = obj;
-            return new[] { item1, item2, item3 };
+            return new[] {item1, item2, item3};
         }
 
         public static List<T> AsList<T>(this (T, T, T) obj)
         {
             var (item1, item2, item3) = obj;
-            return new List<T> { item1, item2, item3 };
+            return new List<T> {item1, item2, item3};
         }
 
         public static T[] AsArray<T>(this (T, T, T, T) obj)
         {
             var (item1, item2, item3, item4) = obj;
-            return new[] { item1, item2, item3, item4 };
+            return new[] {item1, item2, item3, item4};
         }
 
         public static List<T> AsList<T>(this (T, T, T, T) obj)
         {
             var (item1, item2, item3, item4) = obj;
-            return new List<T> { item1, item2, item3, item4 };
+            return new List<T> {item1, item2, item3, item4};
         }
-        
+
         public static TValue? GetOrDefault<TKey, TValue>(this IDictionary<TKey, TValue> dictionary, TKey key)
         {
             dictionary.TryGetValue(key, out var value);
             return value;
         }
 
-        public static TValue GetOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> directory, TKey key, Func<TValue>? creator = null) where TValue : new()
+        public static TValue GetOrCreate<TKey, TValue>(this IDictionary<TKey, TValue> directory, TKey key,
+            Func<TValue>? creator = null) where TValue : new()
         {
             if (!directory.ContainsKey(key)) directory[key] = creator == null ? new TValue() : creator();
             return directory[key];
@@ -234,7 +240,7 @@ namespace GammaLibrary.Extensions
             return value;
         }
 
+        // IEnumerable<T>.Any 已经针对 IList<T>/T[] 优化
         public static bool IsEmpty<T>(this IEnumerable<T> enumerable) => !enumerable.Any();
     }
 }
-#pragma warning enable CA1002 // Do not expose generic lists

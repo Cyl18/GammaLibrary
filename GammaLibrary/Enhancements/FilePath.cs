@@ -36,6 +36,7 @@ namespace GammaLibrary.Enhancements
         public static implicit operator FilePath(string path) => new(path);
 
         public override string ToString() => SourcePath;
+        public static FilePath FromString(string s, bool useFullPath = false) => new(s, useFullPath);
 
         public bool Equals(FilePath other)
         {

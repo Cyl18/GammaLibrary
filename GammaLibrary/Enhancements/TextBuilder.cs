@@ -6,10 +6,10 @@ using System.Threading;
 
 namespace GammaLibrary.Enhancements
 {
-    public static class TextBuilder
+    internal static class TextBuilder
     {
         //public static ThreadLocal<StringBuilder> sbs;
-
+        /*
         public static void Line(string content = "")
         {
         }
@@ -17,7 +17,7 @@ namespace GammaLibrary.Enhancements
         public static void Text(string content)
         {
         }
-
+        */
         public static void TextIf()
         {
 
