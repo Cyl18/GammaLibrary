@@ -15,7 +15,7 @@ namespace GammaLibrary.Extensions
             try
             {
                 webClient.DownloadProgressChanged += ProgressChangedHandler;
-                await webClient.DownloadFileTaskAsync(address, fileName);
+                await webClient.DownloadFileTaskAsync(address, fileName).ConfigureAwait(false);
             }
             finally
             {
@@ -36,7 +36,7 @@ namespace GammaLibrary.Extensions
             try
             {
                 webClient.DownloadProgressChanged += ProgressChangedHandler;
-                return await webClient.DownloadStringTaskAsync(address);
+                return await webClient.DownloadStringTaskAsync(address).ConfigureAwait(false);
             }
             finally
             {
@@ -57,7 +57,7 @@ namespace GammaLibrary.Extensions
             try
             {
                 webClient.DownloadProgressChanged += ProgressChangedHandler;
-                return await webClient.DownloadDataTaskAsync(address);
+                return await webClient.DownloadDataTaskAsync(address).ConfigureAwait(false);
             }
             finally
             {
@@ -79,7 +79,7 @@ namespace GammaLibrary.Extensions
             try
             {
                 webClient.DownloadProgressChanged += ProgressChangedHandler;
-                await webClient.UploadFileTaskAsync(address, fileName);
+                await webClient.UploadFileTaskAsync(address, fileName).ConfigureAwait(false);
             }
             finally
             {
@@ -101,7 +101,7 @@ namespace GammaLibrary.Extensions
             try
             {
                 webClient.DownloadProgressChanged += ProgressChangedHandler;
-                return await webClient.UploadStringTaskAsync(address, data);
+                return await webClient.UploadStringTaskAsync(address, data).ConfigureAwait(false);
             }
             finally
             {
@@ -123,7 +123,7 @@ namespace GammaLibrary.Extensions
             try
             {
                 webClient.DownloadProgressChanged += ProgressChangedHandler;
-                return await webClient.UploadDataTaskAsync(address, data);
+                return await webClient.UploadDataTaskAsync(address, data).ConfigureAwait(false);
             }
             finally
             {
@@ -138,13 +138,13 @@ namespace GammaLibrary.Extensions
 
         public static async Task<T> GetJsonAsync<T>(this WebClient client, string address)
         {
-            var str = await client.DownloadStringTaskAsync(address);
+            var str = await client.DownloadStringTaskAsync(address).ConfigureAwait(false);
             return str.JsonDeserialize<T>();
         }
 
         public static async Task<T> PostJsonAsync<T>(this WebClient client, string address, string data)
         {
-            var str = await client.UploadStringTaskAsync(address, data);
+            var str = await client.UploadStringTaskAsync(address, data).ConfigureAwait(false);
             return str.JsonDeserialize<T>();
         }
     }

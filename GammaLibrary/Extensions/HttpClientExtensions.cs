@@ -22,26 +22,26 @@ namespace GammaLibrary.Extensions
             Directory.CreateDirectory(Path.GetDirectoryName(Path.GetFullPath(destination)) ??
                                       throw new InvalidOperationException($"Invalid destination: {destination}"));
             using var fs = File.OpenWrite(destination);
-            await client.DownloadAsync(requestUri, fs, progress, cancellationToken);
+            await client.DownloadAsync(requestUri, fs, progress, cancellationToken).ConfigureAwait(false);
         }
 
 
         public static async Task DownloadAsync(this HttpClient client, string requestUri, Stream destination,
             IProgress<double>? progress = default, CancellationToken cancellationToken = default)
         {
-            using var response = await client.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken);
+            using var response = await client.GetAsync(requestUri, HttpCompletionOption.ResponseHeadersRead, cancellationToken).ConfigureAwait(false);
             var contentLength = response.Content.Headers.ContentLength;
             response.EnsureSuccessStatusCode();
 
-            using var download = await response.Content.ReadAsStreamAsync();
+            using var download = await response.Content.ReadAsStreamAsync().ConfigureAwait(false);
             if (progress == null || !contentLength.HasValue)
             {
-                await download.CopyToAsync(destination);
+                await download.CopyToAsync(destination).ConfigureAwait(false);
                 return;
             }
 
             var relativeProgress = new Progress<long>(totalBytes => progress.Report((float)totalBytes / contentLength.Value));
-            await download.CopyToAsync(destination, 81920, relativeProgress, cancellationToken);
+            await download.CopyToAsync(destination, 81920, relativeProgress, cancellationToken).ConfigureAwait(false);
             progress.Report(1);
         }
 
@@ -61,9 +61,9 @@ namespace GammaLibrary.Extensions
             var buffer = new byte[bufferSize];
             long totalBytesRead = 0;
             int bytesRead;
-            while ((bytesRead = await source.ReadAsync(buffer, 0, buffer.Length, cancellationToken)) != 0)
+            while ((bytesRead = await source.ReadAsync(buffer, 0, buffer.Length, cancellationToken).ConfigureAwait(false)) != 0)
             {
-                await destination.WriteAsync(buffer, 0, bytesRead, cancellationToken);
+                await destination.WriteAsync(buffer, 0, bytesRead, cancellationToken).ConfigureAwait(false);
                 totalBytesRead += bytesRead;
                 progress?.Report(totalBytesRead);
             }
@@ -71,9 +71,9 @@ namespace GammaLibrary.Extensions
 
         public static async Task<string> PostStringAsync(this HttpClient client, string address, HttpContent data)
         {
-            var response = await client.PostAsync(address, data);
+            var response = await client.PostAsync(address, data).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
-            return await response.Content.ReadAsStringAsync();
+            return await response.Content.ReadAsStringAsync().ConfigureAwait(false);
         }
 
         // TODO 这里 .NET 5 加了新的 API 考虑删除
@@ -87,15 +87,15 @@ namespace GammaLibrary.Extensions
 
         public static async Task<T> GetJsonAsync<T>(this HttpClient client, string address)
         {
-            var str = await client.GetStringAsync(address);
+            var str = await client.GetStringAsync(address).ConfigureAwait(false);
             return str.JsonDeserialize<T>();
         }
 
         public static async Task<T> PostJsonAsync<T>(this HttpClient client, string address, HttpContent data)
         {
-            var response = await client.PostAsync(address, data);
+            var response = await client.PostAsync(address, data).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
-            var str = await response.Content.ReadAsStringAsync();
+            var str = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
             return str.JsonDeserialize<T>();
         }
 

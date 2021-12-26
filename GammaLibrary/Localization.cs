@@ -5,10 +5,10 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using GammaLibrary.Extensions;
-using Newtonsoft.Json.Linq;
 
 namespace GammaLibrary
 {
+    /*
     public class Localization // TODO database and JsonDatabase
     {
         private const string Separator = ".";
@@ -34,7 +34,7 @@ namespace GammaLibrary
         {
             return Arrays.ContainsKey(key) ? Arrays[key] : new[] { key };
         }
-
+        
         public static void Load(string json)
         {
 #if TRACE
@@ -114,4 +114,5 @@ namespace GammaLibrary
             return Localization.GetString(localizable);
         }
     }
+    */
 }

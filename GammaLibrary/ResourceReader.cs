@@ -29,7 +29,7 @@ namespace GammaLibrary
         public static async Task<string?> ReadAsync(Assembly assembly, string name)
         {
             await using var stream = GetStream(assembly, name);
-            return stream == null ? null : await new StreamReader(stream).ReadToEndAsync();
+            return stream == null ? null : await new StreamReader(stream).ReadToEndAsync().ConfigureAwait(false);
         }
         [MethodImpl(MethodImplOptions.NoInlining)]
 

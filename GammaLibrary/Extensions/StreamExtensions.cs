@@ -34,7 +34,7 @@ namespace GammaLibrary.Extensions
         public static void CopyToFile(this Stream stream, string path)
         {
             using var fileStream = File.OpenWrite(path);
-            stream.CopyTo(fileStream, 4096);
+            stream.CopyTo(fileStream);
         }
 
         /// <summary>
@@ -45,6 +45,12 @@ namespace GammaLibrary.Extensions
         public static T CopyFrom<T>(this T target, Stream source) where T : Stream
         {
             source.CopyTo(target);
+            return target;
+        }
+
+        public static async Task<T> CopyFromAsync<T>(this T target, Stream source) where T : Stream
+        {
+            await source.CopyToAsync(target).ConfigureAwait(false);
             return target;
         }
 
