@@ -33,7 +33,7 @@ namespace GammaLibrary
             var savePath = SavePath;
             if (File.Exists(savePath))
             {
-                Instance = File.ReadAllText(savePath).JsonDeserialize<T>();
+                Instance = File.ReadAllText(savePath).JsonDeserialize<T>()!;
             }
             else
             {

@@ -24,6 +24,11 @@ namespace GammaLibrary.Extensions
             return predicate(tuple.Item1) && predicate(tuple.Item2) && predicate(tuple.Item3);
         }
 
+        public static string[] ToArrayOfString(this ITuple tuple)
+        {
+            return tuple.ToArray<string>();
+        }
+
         public static T[] ToArray<T>(this ITuple tuple)
         {
             var array = new T[tuple.Length];

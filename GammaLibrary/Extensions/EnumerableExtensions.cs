@@ -240,6 +240,11 @@ namespace GammaLibrary.Extensions
             return value;
         }
 
+        public static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> items, Func<T, TKey> property)
+        {
+            return items.GroupBy(property).Select(x => x.First());
+        }
+
         // IEnumerable<T>.Any 已经针对 IList<T>/T[] 优化
         public static bool IsEmpty<T>(this IEnumerable<T> enumerable) => !enumerable.Any();
     }

@@ -17,7 +17,7 @@ namespace GammaLibrary.Extensions
         [MethodImpl(MethodImplOptions.AggressiveInlining)] public static string OrEmpty(this string? s) => s ?? string.Empty;
         [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte[] ToBytes(this string str, Encoding encoding) => encoding.GetBytes(str);
         [MethodImpl(MethodImplOptions.AggressiveInlining)] public static string ConvertToString(this byte[] bytes, Encoding encoding) => encoding.GetString(bytes);
-        [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte[] ToUTF8Bytes(this string str) => str.ToBytes(Encoding.UTF8);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte[] ToUTF8Bytes(this string str) => str.ToBytes(new UTF8Encoding(false));
         [MethodImpl(MethodImplOptions.AggressiveInlining)] public static string ToUTF8String(this byte[] bytes) => bytes.ConvertToString(Encoding.UTF8);
         [MethodImpl(MethodImplOptions.AggressiveInlining)] public static byte[] ToUTF32Bytes(this string str) => str.ToBytes(Encoding.UTF32);
         [MethodImpl(MethodImplOptions.AggressiveInlining)] public static string ToUTF32String(this byte[] bytes) => bytes.ConvertToString(Encoding.UTF32);
@@ -71,6 +71,10 @@ namespace GammaLibrary.Extensions
         
         [MethodImpl(MethodImplOptions.AggressiveInlining)] public static bool NotEndsWith(this string str, string value, StringComparison stringComparison = StringComparison.Ordinal) => !str.EndsWith(value, stringComparison);
         [MethodImpl(MethodImplOptions.AggressiveInlining)] public static bool NotEndsWith(this string str, char value) => !str.EndsWith(value);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)] public static bool EqualsIgnoreCase(this string str, string other) => str.Equals(other, StringComparison.OrdinalIgnoreCase);
+        [MethodImpl(MethodImplOptions.AggressiveInlining)] public static bool NotEqualsIgnoreCase(this string str, string other) => !str.Equals(other, StringComparison.OrdinalIgnoreCase);
+
+        
 
         public static string ToStringPlus<T>(this T obj)
         {

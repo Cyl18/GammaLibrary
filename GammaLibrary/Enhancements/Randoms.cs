@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading;
+using GammaLibrary.Extensions;
 
 namespace GammaLibrary.Enhancements
 {
@@ -15,6 +16,16 @@ namespace GammaLibrary.Enhancements
             _threadLocalRandom ??= new Random();
 
         public static int NextInt() => Rng.Next();
+        public static int NextInt(Interval<int> interval)
+        {
+            var standardized = interval.Standardize();
+            return Rng.Next(standardized.LeftEndpoint.Value, standardized.RightEndpoint.Value);
+        }
+
+        public static int NextDouble(Interval<double> interval)
+        {
+            throw new NotImplementedException();
+        }
         //public static uint NextUInt() => (uint)NextInt() + (uint)NextInt();
 
         //public static bool NextBool() => NextInt() > int.MaxValue / 2;

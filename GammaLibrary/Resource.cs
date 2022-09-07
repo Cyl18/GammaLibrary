@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text;
 using GammaLibrary.Extensions;
@@ -40,7 +41,6 @@ namespace GammaLibrary
         {
             internalStream = LazyHelper.FromObject(stream);
             internalString = new Lazy<string>(() => internalStream.Value.ReadToEnd());
-
         }
 
         public Resource(string str)

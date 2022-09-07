@@ -88,7 +88,7 @@ namespace GammaLibrary.Extensions
         public static async Task<T> GetJsonAsync<T>(this HttpClient client, string address)
         {
             var str = await client.GetStringAsync(address).ConfigureAwait(false);
-            return str.JsonDeserialize<T>();
+            return str.JsonDeserialize<T>()!;
         }
 
         public static async Task<T> PostJsonAsync<T>(this HttpClient client, string address, HttpContent data)

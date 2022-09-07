@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
     <Authors>Cyl18</Authors>
     <Company>Cyl18</Company>
     <Description>Just my coding library.</Description>
@@ -12,7 +12,7 @@
     <RepositoryUrl>https://github.com/Cyl18/GammaLibrary</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>2.3.0</Version>
+    <Version>3.0.0-pre1</Version>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
     <Nullable>enable</Nullable>
