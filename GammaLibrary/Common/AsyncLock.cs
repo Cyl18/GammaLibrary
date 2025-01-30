@@ -11,9 +11,10 @@ namespace GammaLibrary.Common
     {
         static SemaphoreSlim semaphore = new SemaphoreSlim(1);
 
-        public Task WaitAsync()
+        public async Task<AsyncLock> WaitAsync()
         {
-            return semaphore.WaitAsync();
+            await semaphore.WaitAsync().ConfigureAwait(false);
+            return this;
         }
 
 

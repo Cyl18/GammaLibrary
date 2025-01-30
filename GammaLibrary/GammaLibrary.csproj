@@ -12,7 +12,7 @@
     <RepositoryUrl>https://github.com/Cyl18/GammaLibrary</RepositoryUrl>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>false</GeneratePackageOnBuild>
-    <Version>3.0.0-pre1</Version>
+    <Version>3.0.0-pre3</Version>
     <EnableNETAnalyzers>true</EnableNETAnalyzers>
     <AnalysisLevel>latest</AnalysisLevel>
     <Nullable>enable</Nullable>

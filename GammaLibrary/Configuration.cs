@@ -16,39 +16,48 @@ namespace GammaLibrary
     public abstract class Configuration<T> where T : Configuration<T>, new()
     {
         private static T? _instance;
+        static object locker = new();
 
         public static T Instance
         {
             get
             {
-                if (_instance == null) Update();
-                return _instance!;
+                lock (locker)
+                {
+                    if (_instance == null) Update();
+                    return _instance!;
+                }
             }
             protected set => _instance = value;
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public static void Update()
         {
-            var savePath = SavePath;
-            if (File.Exists(savePath))
+            lock (locker)
             {
-                Instance = File.ReadAllText(savePath).JsonDeserialize<T>()!;
-            }
-            else
-            {
-                Instance = new T();
-                Save();
-            }
+                var savePath = SavePath;
+                if (File.Exists(savePath))
+                {
+                    Instance = File.ReadAllText(savePath).JsonDeserialize<T>()!;
+                }
+                else
+                {
+                    Instance = new T();
+                    Save();
+                }
 
-            Instance.OnUpdated();
+                Instance.OnUpdated();
+
+            }
         }
 
-        [MethodImpl(MethodImplOptions.Synchronized)]
         public static void Save()
         {
-            Instance.ToJsonString().SaveToFile(SavePath);
-            Instance.OnSaved();
+            lock (locker)
+            {
+                Instance.ToJsonString().SaveToFile(SavePath);
+                Instance.OnSaved();
+            }
         }
 
         protected virtual void OnUpdated() { }

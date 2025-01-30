@@ -18,6 +18,7 @@ namespace GammaLibrary.Extensions
         /// <remarks>
         /// Warning: MD5 is <c>INSECURE</c>
         /// </remarks>
+        [Obsolete("MD5 is insecure")]
         public static byte[] MD5(this string input) => input.ToUTF8Bytes().MD5();
 
         /// <summary>
@@ -27,15 +28,18 @@ namespace GammaLibrary.Extensions
         /// <remarks>
         /// Warning: MD5 is <c>INSECURE</c>
         /// </remarks>
+        [Obsolete("MD5 is insecure")]
         public static byte[] MD5(this byte[] input) => _md5.Value!.ComputeHash(input);
         
         private static readonly ThreadLocal<SHA256> _sha256 = new(System.Security.Cryptography.SHA256.Create);
         public static byte[] SHA256(this string input) => input.ToUTF8Bytes().SHA256();
+        public static string SHA256HexString(this string input) => input.ToUTF8Bytes().SHA256().ToHexString();
         public static byte[] SHA256(this byte[] input) => _sha256.Value!.ComputeHash(input);
 
 
         private static readonly ThreadLocal<SHA1> _sha1 = new(System.Security.Cryptography.SHA1.Create);
         public static byte[] SHA1(this string input) => input.ToUTF8Bytes().SHA1();
+        public static string SHA1HexString(this string input) => input.ToUTF8Bytes().SHA1().ToHexString();
         public static byte[] SHA1(this byte[] input) => _sha1.Value!.ComputeHash(input);
 
 
