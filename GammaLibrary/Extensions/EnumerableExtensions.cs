@@ -240,7 +240,7 @@ namespace GammaLibrary.Extensions
             return value;
         }
 
-        public static IEnumerable<T> DistinctBy<T, TKey>(this IEnumerable<T> items, Func<T, TKey> property)
+        public static IEnumerable<T> DistinctByX<T, TKey>(this IEnumerable<T> items, Func<T, TKey> property)
         {
             return items.GroupBy(property).Select(x => x.First());
         }
